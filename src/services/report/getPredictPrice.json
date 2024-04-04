@@ -1,0 +1,17 @@
+{
+  "message": "농수산물 가격 예측 조회 성공",
+  "body": {
+    "weather": {
+      "type": "rain",
+      "day": "2"
+    },
+    "news": {
+      "keyword": "장마로 인한 가격 상승",
+      "url": "https://news.naver.com/main/read"
+    },
+    "cost": {
+      "percent": 3,
+      "price": 2300
+    }
+  }
+}

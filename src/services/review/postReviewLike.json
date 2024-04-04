@@ -1,0 +1,6 @@
+{
+  "message": "리뷰를 좋아요 했습니다.",
+  "body": {
+    "is_liked": true
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "message": "조회에 성공했습니다.",
+  "body": {
+    "cooking_movies": [
+      {
+        "url": "https://youtube.com",
+        "thumbnail": "https://i.ytimg.com/vi/YOxF7crP1ck/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBUo2d5eNjp4jFOXYJ1kC6MIZ666A",
+        "title": "가지요리 맛있어요1",
+        "content": "쉽고 간단하게 만들 수 있는 가지요리"
+      },
+      {
+        "url": "https://youtube.com",
+        "thumbnail": "https://i.ytimg.com/vi/YOxF7crP1ck/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBUo2d5eNjp4jFOXYJ1kC6MIZ666A",
+        "title": "가지요리 맛있어요2",
+        "content": "쉽고 간단하게 만들 수 있는 가지요리"
+      },
+      {
+        "url": "https://youtube.com",
+        "thumbnail": "https://i.ytimg.com/vi/YOxF7crP1ck/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBUo2d5eNjp4jFOXYJ1kC6MIZ666A",
+        "title": "가지요리 맛있어요3",
+        "content": "쉽고 간단하게 만들 수 있는 가지요리"
+      }
+    ],
+    "total_count": 3
+  }
+}

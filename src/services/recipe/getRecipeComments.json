@@ -1,0 +1,43 @@
+{
+  "message": "댓글 리스트 조회 성공",
+  "body": {
+    "comments": [
+      {
+        "id": 1,
+        "content": "간단하게 만들어먹기 좋은 것 같아요! 그래서 자취할 때 많이 만들어 먹었던 기억이 나네요. 추천입니다.",
+        "last_updated_time": "2024년 3월 7일",
+        "reply_count": 3,
+        "member": {
+          "id": 1,
+          "profile_image": "https://m.puzzlepeople.co.kr/gurmi/data/shop_image/thums/450_450_1513673435_1_65915.jpg",
+          "nickname": "산넘어산"
+        }
+      },
+      {
+        "id": 2,
+        "content": "가지구이 신발보다 쌀까 과연?",
+        "last_updated_time": "2024년 3월 7일",
+        "reply_count": 3,
+        "member": {
+          "id": 2,
+          "profile_image": null,
+          "nickname": "불넘어불"
+        }
+      },
+      {
+        "id": 3,
+        "content": "가지구이 신발보다 싸겠지..",
+        "last_updated_time": "2024년 3월 7일",
+        "reply_count": 3,
+        "member": {
+          "id": 1,
+          "profile_image": "https://m.puzzlepeople.co.kr/gurmi/data/shop_image/thums/450_450_1513673435_1_65915.jpg",
+          "nickname": "산넘어산"
+        }
+      }
+    ],
+    "total_count": 3,
+    "has_more": false,
+    "last": 1
+  }
+}

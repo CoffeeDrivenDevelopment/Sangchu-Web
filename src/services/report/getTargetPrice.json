@@ -1,0 +1,28 @@
+{
+  "message": "목표가 조회 성공",
+  "body": {
+    "targets": [
+      {
+        "price": 9000,
+        "cnt": 25
+      },
+      {
+        "price": 8900,
+        "cnt": 20
+      },
+      {
+        "price": 8800,
+        "cnt": 11
+      },
+      {
+        "price": 8700,
+        "cnt": 12
+      },
+      {
+        "price": 8600,
+        "cnt": 11
+      }
+    ],
+    "targetPrice": 100000 
+  }
+}

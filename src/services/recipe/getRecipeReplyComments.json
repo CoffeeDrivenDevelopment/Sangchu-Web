@@ -1,0 +1,40 @@
+{
+  "message": "대댓글 리스트 조회 성공",
+  "body": {
+    "comments": [
+      {
+        "id": 1,
+        "content": "맞아요 저도 그렇게 생각해요! 대댓글 1",
+        "last_updated_time": "2024년 3월 7일",
+        "member": {
+          "id": 1,
+          "profile_image": "https://m.puzzlepeople.co.kr/gurmi/data/shop_image/thums/450_450_1513673435_1_65915.jpg",
+          "nickname": "산넘어산"
+        }
+      },
+      {
+        "id": 2,
+        "content": "대댓글 2",
+        "last_updated_time": "2024년 3월 7일",
+        "member": {
+          "id": 2,
+          "profile_image": null,
+          "nickname": "불넘어불"
+        }
+      },
+      {
+        "id": 3,
+        "content": "대댓글 3",
+        "last_updated_time": "2024년 3월 7일",
+        "member": {
+          "id": 3,
+          "profile_image": "https://m.puzzlepeople.co.kr/gurmi/data/shop_image/thums/450_450_1513673435_1_65915.jpg",
+          "nickname": "산넘어산"
+        }
+      }
+    ],
+    "total_count": 3,
+    "has_more": true,
+    "last": 1
+  }
+}

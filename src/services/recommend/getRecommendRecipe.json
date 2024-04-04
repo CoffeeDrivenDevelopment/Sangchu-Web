@@ -1,0 +1,17 @@
+{
+  "message": "추천 메뉴 조회 성공",
+  "body": {
+    "recipe": {
+      "name": "김치 짜글이",
+      "img": "https://doewxs707ovkc.cloudfront.net/v3/prod/image/item/mainpage/905/2a9e485db84141e6a7810878fec895af20210705223349.",
+      "tags": ["국물/찌개", "한식"],
+      "ingredients": "고구마 100g(2/3개), 설탕 2g(1/3작은술),찹쌀가루 3g(2/3작은술), 물 200ml(1컵), 잣 8g(8알)"
+    },
+    "cooking-movie": {
+      "url": "https://youtube.com",
+      "image": "https://i.ytimg.com/vi/tX_AVIgBIT4/hqdefault.jpg",
+      "title": "백선생님 마음대로 넣어 만든 김치짜글이",
+      "content": "들어는 봤나 짜글이, 고기외에는 마음대로 넣어만드는 김치짜글이 레시피"
+    }
+  }
+}

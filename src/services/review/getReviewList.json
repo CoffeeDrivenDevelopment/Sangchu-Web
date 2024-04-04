@@ -1,0 +1,49 @@
+{
+  "message": "리스트 조회에 성공하였습니다.",
+  "body": {
+    "reviews": [
+      {
+        "id": 100,
+        "title": "가지구이 만들어 먹었어요",
+        "content": "우리 딸이...",
+        "image": "IMAGE_URL",
+        "like_count": 15,
+        "is_liked": true,
+        "member": {
+          "id": 1,
+          "nickname": "김싸피",
+          "profile_image": "IMAGE_URL"
+        }
+      },
+      {
+        "id": 101,
+        "title": "가지구이 맛있어요",
+        "content": "우리 아들이...",
+        "image": "IMAGE_URL",
+        "like_count": 13,
+        "is_liked": true,
+        "member": {
+          "id": 1,
+          "nickname": "김싸피",
+          "profile_image": "IMAGE_URL"
+        }
+      },
+      {
+        "id": 102,
+        "title": "가지,가지, 가지 볶음",
+        "content": "가지 볶음 만드는...",
+        "image": "IMAGE_URL",
+        "like_count": 8,
+        "is_liked": false,
+        "member": {
+          "id": 2,
+          "nickname": "이싸피",
+          "profile_image": "IMAGE_URL"
+        }
+      }
+    ],
+    "has_more": true,
+    "last": 10,
+    "total_count": 1015
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "message": "가격 변동 정보 조회",
+  "body": {
+    "id": 1,
+    "img": "https://m.gosanmiso.com/web/product/big/202104/68abc49bf85d908ceef05450cedac1f4.jpg",
+    "type": "상승",
+    "content": ["2일 연속", "중이에요."]
+  }
+}
