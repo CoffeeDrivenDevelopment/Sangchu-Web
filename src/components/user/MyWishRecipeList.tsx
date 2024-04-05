@@ -59,6 +59,7 @@ function MyWishRecipeList() {
   const moveToDetail = (recipe: Recipe) => {
     navigate(`/recipe/${recipe.recipe_id}`, {
       state: {
+        id: recipe.recipe_id,
         img: recipe.recipe_image,
         name: recipe.recipe_title,
       },
@@ -93,6 +94,7 @@ function MyWishRecipeList() {
       setRecipeListData((prevRecipes) => prevRecipes.filter((recipe) => recipe.recipe_id !== id));
     } catch (error) {
       console.log(error);
+      console.log('id', id);
     }
   };
 
