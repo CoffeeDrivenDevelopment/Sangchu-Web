@@ -96,15 +96,6 @@ function MyWishRecipeList() {
     }
   };
 
-  // const moveToDetail = (id: number, img: string, name: string) => {
-  //   navigate(`/recipe/${id}`, {
-  //     state: {
-  //       img,
-  //       name,
-  //     },
-  //   });
-  // };
-
   return (
     <FlexColBox ref={containerRef} $margin="1rem" $gap="1rem">
       {recipeListData.map((recipe) => (
@@ -119,11 +110,7 @@ function MyWishRecipeList() {
                 <img src={unlikeImg} alt="연한 숟가락" />
               </UnlikeButton>
             </HeaderBox>
-            {/* <TagBox>
-              {recipe.tags.map((tag) => (
-                <TagBtn key={tag}>{`#${tag}`}</TagBtn>
-              ))}
-            </TagBox> */}
+
             <TagBox>
               <TagBtn>{`#${recipe.food_category}`}</TagBtn>
               <TagBtn>{`#${recipe.cooking_difficulty}`}</TagBtn>
