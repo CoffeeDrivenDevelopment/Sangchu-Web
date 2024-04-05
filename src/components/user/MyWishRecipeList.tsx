@@ -106,7 +106,12 @@ function MyWishRecipeList() {
           <ContentsBox>
             <HeaderBox>
               <h2>{recipe.recipe_title}</h2>
-              <UnlikeButton onClick={() => unLike(recipe.recipe_id)}>
+              <UnlikeButton
+                onClick={(event) => {
+                  event.stopPropagation();
+                  unLike(recipe.recipe_id);
+                }}
+              >
                 <img src={unlikeImg} alt="연한 숟가락" />
               </UnlikeButton>
             </HeaderBox>
