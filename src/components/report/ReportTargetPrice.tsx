@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { forwardRef, useState } from 'react';
 import { useParams } from 'react-router';
 // import WheelPicker from 'react-simple-wheel-picker';
 import { main } from '../../assets/styles/palettes';
@@ -8,16 +8,43 @@ import getTargetPrice from '../../services/report/getTargetPrice';
 import postTargetPrice from '../../services/report/postTargetPrice';
 // import useTargetPriceStore from '../../stores/usePriceStore';
 import EmptyData from '../common/EmptyData';
-import { FlexColBox } from '../common/FlexColBox';
+// import { FlexColBox } from '../common/FlexColBox';
 // import { FlexRowBox } from '../common/FlexRowBox';
 import LoadingSpinner from '../common/LoadingSpinner';
 import MainButton from '../common/MainButton';
 
-import FormControl from '@mui/material/FormControl';
-import FormHelperText from '@mui/material/FormHelperText';
-import MenuItem from '@mui/material/MenuItem';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import FormControl from '@mui/joy/FormControl';
+import Input from '@mui/joy/Input';
+// import { SelectChangeEvent } from '@mui/material/Select';
+import { NumericFormat, NumericFormatProps } from 'react-number-format';
+import useTargetPriceStore from '../../stores/useTargetPriceStore';
 
+const NumericFormatAdapter = forwardRef<NumericFormatProps, CustomProps>(function NumericFormatAdapter(props, ref) {
+  const { onChange, ...other } = props;
+
+  return (
+    <NumericFormat
+      {...other}
+      getInputRef={ref}
+      onValueChange={(values) => {
+        onChange({
+          target: {
+            name: props.name,
+            value: values.value,
+          },
+        });
+      }}
+      thousandSeparator
+      valueIsNumericString
+      prefix="₩"
+    />
+  );
+});
+
+type CustomProps = {
+  onChange: (event: { target: { name: string; value: string } }) => void;
+  name: string;
+};
 // type DataSet = {
 //   id: string;
 //   value: string | number;
@@ -33,13 +60,20 @@ function ReportTargetPrice() {
     queryKey: ['get-TargetPrice', id],
     queryFn: () => (id !== null ? getTargetPrice(id) : Promise.reject(new Error('ID is null'))),
   });
-
-  const [myPrice, setMyprice] = useState(targetData?.targets[0].price.toString());
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setMyprice(event.target.value);
-  };
-  console.log(targetData?.targetPrice);
+  
+  const { targets, addTarget } = useTargetPriceStore();
+  const target = targets.find(target => target.id === id)
+  const targetPrice = target?.targetPrice
+  
+  const [myPrice, setMyprice] = useState<number | undefined>(targetPrice || undefined);
+  // useEffect(() => {
+  //   setMyprice(targetData?.targetPrice);
+  // }, []);
+  // console.log('현재 내 목표가:', myPrice);
+  // const handleChange = (event: SelectChangeEvent) => {
+  //   setMyprice(event.target.value);
+  // };
+  // console.log(targetData?.targetPrice);
   // useEffect(() => {
   //   if (targetData && targetData.targets.length > 0) {
   //     setSelectedId(targetData.targets[0].price.toString());
@@ -59,6 +93,15 @@ function ReportTargetPrice() {
   //   }
   // }, [priceValue, targetData, setPriceValue]);
 
+  const handleSetTarget = async () => {
+    if (id != null && myPrice != null) {
+      addTarget(id, myPrice);
+      const myTargetPrice = { id, price: myPrice };
+      await postTargetPrice(myTargetPrice);
+      alert('목표가 설정 완료!');
+    }
+  };
+
   if (targetLoading) {
     return <LoadingSpinner />;
   }
@@ -66,7 +109,7 @@ function ReportTargetPrice() {
   if (!targetData) {
     return <EmptyData />;
   }
-
+  // console.log('리렌더링');
   // const targetList: number[] = targetData.targets.map((item) => item.price);
 
   // const setKeyValue = (arr: number[]): DataSet[] => {
@@ -91,19 +134,20 @@ function ReportTargetPrice() {
   //   };
 
   // 목표가 설정 완료 버튼 클릭
-  function Picker() {
-    const handleSetTarget = async () => {
-      if (id != null) {
-        // setPriceValue(Number(myPrice));
-        const myTargetPrice = { id, price: Number(myPrice) };
-        await postTargetPrice(myTargetPrice);
-        alert('목표가 설정 완료!');
-      }
-    };
-    return (
-      <FlexColBox $justifyContent="center" $alignItems="center">
-        <PickerContainer>
-          {/* {selectedId ? (
+  // function Picker() {
+  //   const handleSetTarget = async () => {
+  //     if (id != null) {
+  //       // setPriceValue(Number(myPrice));
+  //       const myTargetPrice = { id, price: Number(myPrice) };
+  //       await postTargetPrice(myTargetPrice);
+  //       alert('목표가 설정 완료!');
+  //     }
+  //   };
+  //   return (
+  //     <FlexColBox $justifyContent="center" $alignItems="center">
+  //       <PickerContainer>
+
+  /* {selectedId ? (
             <WheelPicker
               data={dataSets}
               onChange={handleOnChange}
@@ -117,8 +161,9 @@ function ReportTargetPrice() {
               backgroundColor="white"
               shadowColor="none"
             />
-          ) : null} */}
-          <FormControl sx={{ m: 1, height: '10vh' }}>
+          ) : null} */
+
+  /* <FormControl sx={{ m: 1, height: '10vh' }}>
             <Select displayEmpty value={myPrice} onChange={handleChange}>
               {targetData?.targets.map((target, i) => (
                 <MenuItem key={i} value={target.price} onClick={() => setMyprice(target.price.toString())}>
@@ -127,35 +172,53 @@ function ReportTargetPrice() {
               ))}
             </Select>
             <FormHelperText>목표가를 설정해주세요!</FormHelperText>
-          </FormControl>
-        </PickerContainer>
-        {/* <TextBox>
-          <PointText>{selectedCnt}</PointText>
-          <div>명이</div>
-          <PointText>{myPrice}</PointText>
-          <div>원에 알림을 설정했어요!</div>
-        </TextBox> */}
-        <ButtonBox>
-          <MainButton text="설정 완료" backgroundColor={main} padding="5px 70px" onClick={() => handleSetTarget()} />
-        </ButtonBox>
-      </FlexColBox>
-    );
-  }
+          </FormControl> */
+
+  //       </PickerContainer>
+  //       {/* <TextBox>
+  //         <PointText>{selectedCnt}</PointText>
+  //         <div>명이</div>
+  //         <PointText>{myPrice}</PointText>
+  //         <div>원에 알림을 설정했어요!</div>
+  //       </TextBox> */}
+
+  //       <ButtonBox>
+  //         <MainButton text="설정 완료" backgroundColor={main} padding="5px 70px" onClick={() => handleSetTarget()} />
+  //       </ButtonBox>
+  //     </FlexColBox>
+  //   );
+  // }
 
   return (
     <div style={{ padding: '5vh 0' }}>
-      <Picker />
+      <FormControl>
+        <Input
+          value={myPrice}
+          color="success"
+          onChange={(event) => setMyprice(Number(event.target.value))}
+          placeholder="목표가를 입력해주세요."
+          slotProps={{
+            input: {
+              component: NumericFormatAdapter,
+            },
+          }}
+        />
+      </FormControl>
+      {/* <input onChange={(e) => setMyprice(Number(e.target.value))} /> */}
+      <ButtonBox>
+        <MainButton text="설정 완료" backgroundColor={main} padding="5px 70px" onClick={() => handleSetTarget()} />
+      </ButtonBox>
     </div>
   );
 }
 
 export default ReportTargetPrice;
 
-const PickerContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  padding-top: 20px;
-`;
+// const PickerContainer = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   padding-top: 20px;
+// `;
 
 const ButtonBox = styled.div`
   padding: 10px;

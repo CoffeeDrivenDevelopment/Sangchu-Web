@@ -5,7 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 import EmptyData from '../../components/common/EmptyData';
 import { FlexColBox } from '../../components/common/FlexColBox';
 import { FlexRowBox } from '../../components/common/FlexRowBox';
-import HomeBox from '../../components/common/HomeBox';
+// import HomeBox from '../../components/common/HomeBox';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import getRecipeMovies from '../../services/recipe/getRecipeMovies';
 
@@ -28,7 +28,7 @@ function RecipeMovie() {
     <div style={{ padding: '2vh' }}>
       <TotalText>총 {movieData.total_count}개</TotalText>
       {movieData.cooking_movies.map((movie, i) => (
-        <HomeBox height={120} key={i}>
+        <div key={i}>
           <Link to={movie.url} target="_blank" style={{ textDecoration: 'none', color: 'black' }}>
             <Paper elevation={3}>
               <FlexRowBox $alignItems="center">
@@ -50,7 +50,7 @@ function RecipeMovie() {
               </FlexRowBox>
             </Paper>
           </Link>
-        </HomeBox>
+        </div>
       ))}
     </div>
   );

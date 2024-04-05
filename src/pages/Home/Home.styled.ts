@@ -1,16 +1,16 @@
 import styled from '@emotion/styled';
 import { Gray, main } from '../../assets/styles/palettes';
 import { FlexColBox } from '../../components/common/FlexColBox';
+import { FlexRowBox } from '../../components/common/FlexRowBox';
 
-export const Header = styled.div`
-  display: flex;
+export const Header = styled(FlexRowBox)`
   justify-content: space-between;
   align-items: center;
-  padding-right: 1rem;
+  padding-right: 4vw;
 `;
 
 export const ContentBox = styled.div`
-  padding: 2vh;
+  padding: 2vh 3vh;
 `;
 
 export const RecipeBox = styled.div`
@@ -22,16 +22,12 @@ export const RecipeBox = styled.div`
 export const TitleText = styled.h5`
   font-family: 'NanumSquareRoundEB';
   color: ${main};
+  margin-bottom: 0.5vh;
 `;
 
 export const TodayRecipeText = styled(TitleText)`
   text-align: right;
-  margin-bottom: 10px;
-`;
-
-export const SubTitleText = styled.h6`
-  font-family: 'NanumSquareRoundEB';
-  margin: 10px 0 0 15px;
+  margin-bottom: 1.2vh;
 `;
 
 export const MovieTitleText = styled.h6`
@@ -48,8 +44,7 @@ export const MovieTitleText = styled.h6`
   -webkit-box-orient: vertical;
 `;
 
-export const RecipeText = styled(SubTitleText)`
-  font-size: 25px;
+export const RecipeText = styled.h4`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
@@ -66,13 +61,8 @@ export const UpdateText = styled.div`
   font-size: 12px;
   color: ${Gray};
   position: absolute;
-  top: 17px;
-  right: 17px;
-`;
-
-export const PriceTitleText = styled.div`
-  font-family: 'NanumSquareRoundB';
-  font-size: 16px;
+  top: 1.2vh;
+  right: 2.2vh;
 `;
 
 export const TodayPriceText = styled.h5`
@@ -104,11 +94,11 @@ export const TagText = styled.div`
 
 export const RecipeSubBox = styled(FlexColBox)`
   text-align: right;
-  padding-right: 15px;
-  gap: 6px;
+  padding-right: 2.2vw;
+  gap: 2vw;
 `;
 
 export const MovieSubBox = styled(FlexColBox)`
-  padding-left: 15px;
-  gap: 6px;
+  padding-left: 4vw;
+  gap: 1vh;
 `;
