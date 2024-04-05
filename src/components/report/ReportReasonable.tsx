@@ -39,17 +39,27 @@ function ReportReasonable() {
         $padding="40px 30px 60px 30px"
         $justifyContent="center"
         $alignItems="center"
+        $gap="1.5vh"
         style={{ fontFamily: 'NanumSquareRoundB' }}
       >
         <MainImg src={reasonableData.img} />
-        <PointText style={{ padding: '10px' }}>
-          {reasonableData.price}원(±{reasonableData.diff})
-        </PointText>
+        <div>{reasonableData.name}의 적정 소비 금액</div>
+
+        {reasonableData.diff > 0 && reasonableData.diff !== reasonableData.price ? (
+          <div>
+            <PointText>{reasonableData.price}원</PointText>
+            <PointText>(목표가 대비+{reasonableData.diff}원)</PointText>
+          </div>
+        ) : (
+          <div>
+            <PointText>{reasonableData.price}원</PointText>
+          </div>
+        )}
         <div>지금 많은 사람들이 {attachParticle(reasonableData.name)}</div>
-          <FlexRowBox>
-            <PointText style={{ fontSize: '15px' }}>{reasonableData.price}</PointText>
-            <div>원에 사고 싶어해요.</div>
-          </FlexRowBox>
+        <FlexRowBox>
+          <PointText style={{ fontSize: '15px' }}>{reasonableData.price}</PointText>
+          <div>원에 사고 싶어해요.</div>
+        </FlexRowBox>
       </FlexColBox>
     </div>
   );
@@ -59,6 +69,8 @@ export default ReportReasonable;
 
 const PointText = styled.h2`
   color: ${main};
+  word-break: keep-all;
+  text-align: center;
 `;
 
 const MainImg = styled.img`

@@ -4,15 +4,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import low_price from '../../../assets/images/low_price.png';
 import map_icon from '../../../assets/images/map.png';
 import market_icon from '../../../assets/images/market.png';
+import online_market from '../../../assets/images/online_market.png';
 import getOfflineList from '../../../services/ingredient/getOfflineList';
 import getOnlineList from '../../../services/ingredient/getOnlineList';
+import useAddressStore from '../../../stores/useAddressStore';
 import EmptyData from '../../common/EmptyData';
 import { FlexColBox } from '../../common/FlexColBox';
 import { FlexRowBox } from '../../common/FlexRowBox';
 import LoadingSpinner from '../../common/LoadingSpinner';
 import * as S from './MarketList.styled';
-import useAddressStore from '../../../stores/useAddressStore';
-import online_market from '../../../assets/images/online_market.png';
 
 function MarketList({ id }: { id: number }) {
   const navigate = useNavigate();
@@ -80,7 +80,11 @@ function MarketList({ id }: { id: number }) {
       ));
       return <div>{marketList}</div>;
     } else {
-      return <EmptyData />;
+      return (
+        <div style={{ fontFamily: 'NanumSquareRoundB', fontSize: '12px' }}>
+          설정한 위치의 3km이내에서 판매하지 않는 재료예요.
+        </div>
+      );
     }
   };
 
