@@ -184,13 +184,23 @@ function IngredientsDetail() {
 
         <FlexRowBox $alignItems="center" $justifyContent="center" $gap="0.1rem" $margin="0.9rem 0">
           <h6>현재 최저가</h6>
-          <h4
-            style={{
-              color: offlineToday.percent < 0 ? 'blue' : offlineToday.percent > 0 ? 'red' : 'black',
-            }}
-          >
-            {offlineToday.price}({offlineToday.percent}%)
-          </h4>
+          {offlineToday.percent !== 0 ? (
+            <h4
+              style={{
+                color: offlineToday.percent < 0 ? 'blue' : 'red',
+              }}
+            >
+              {offlineToday.price}({offlineToday.percent}%)
+            </h4>
+          ) : (
+            <h4
+              style={{
+                color: main,
+              }}
+            >
+              {offlineToday.price}
+            </h4>
+          )}
           <h6>원</h6>
         </FlexRowBox>
         <h6 style={{ marginBottom: '0.6rem' }}>온라인 가격추이</h6>
