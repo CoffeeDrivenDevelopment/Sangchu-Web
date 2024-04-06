@@ -135,23 +135,6 @@ function MyPriceList() {
       )}
     </div>
   );
-  
-  // return (
-  //   <div>
-  //     {priceData.map((item, index) => (
-  //       <Container key={index}>
-  //         <ChartContainer>
-  //           <canvas ref={(ref) => (chartRefs.current[index] = ref)}></canvas>
-  //         </ChartContainer>
-  //         <Context onClick={() => onClickDetail(item.ingredient_id)}>
-  //           <Ingredient>{item.ingredient_name}</Ingredient>
-  //           <OnlinePrice>{item.current_online_price.toLocaleString('ko-KR')}원</OnlinePrice>
-  //           <OfflinePrice>{item.current_offline_price.toLocaleString('ko-KR')}원</OfflinePrice>
-  //         </Context>
-  //       </Container>
-  //     ))}
-  //   </div>
-  // );
 }
 
 export default MyPriceList;
