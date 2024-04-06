@@ -45,7 +45,7 @@ function IngredientReport() {
         <MainImg src={image} />
         <FlexColBox $padding="10px" $justifyContent="center" $alignItems="center" $gap="7px">
           <h1>{name}</h1>
-          <FlexRowBox $gap="3px">
+          <FlexRowBox $gap="3px" $alignItems="center">
             <InfoText>{reportData.content[0]}</InfoText>
             <InfoText
               style={{
