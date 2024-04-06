@@ -13,6 +13,7 @@ import getSearchIngredient from '../../services/ingredient/getSearchIngredient';
 import useToggleStore from '../../stores/useToggleStore';
 import EmptyData from '../../components/common/EmptyData';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
+import no_image from '../../assets/images/no_image.png';
 
 type IngredientProps = {
   ingredient_id: number;
@@ -143,7 +144,7 @@ function Ingredients() {
         <IngredientWrapper>
           {rankData.populars.map((rankInfo) => (
             <div key={rankInfo.ingredient_id} onClick={() => moveToDetail(rankInfo.ingredient_id)}>
-              <IconBox img={rankInfo.ingredient_image} text={rankInfo.ingredient_name} />
+              <IconBox img={rankInfo.ingredient_image || no_image} text={rankInfo.ingredient_name} />
             </div>
           ))}
         </IngredientWrapper>
@@ -154,7 +155,7 @@ function Ingredients() {
           {rankAscData.ingredient_gap_list.map((rankInfo) => (
             <div key={rankInfo.ingredient_id} onClick={() => moveToDetail(rankInfo.ingredient_id)}>
               <IconBox
-                img={rankInfo.ingredient_image}
+                img={rankInfo.ingredient_image || no_image}
                 text={rankInfo.ingredient_name}
                 percent={((rankInfo.curr_price - rankInfo.prev_price) / rankInfo.prev_price) * 100}
               />
@@ -168,7 +169,7 @@ function Ingredients() {
           {rankDescData.ingredient_gap_list.map((rankInfo) => (
             <div key={rankInfo.ingredient_id} onClick={() => moveToDetail(rankInfo.ingredient_id)}>
               <IconBox
-                img={rankInfo.ingredient_image}
+                img={rankInfo.ingredient_image || no_image}
                 text={rankInfo.ingredient_name}
                 percent={((rankInfo.curr_price - rankInfo.prev_price) / rankInfo.prev_price) * 100}
               />

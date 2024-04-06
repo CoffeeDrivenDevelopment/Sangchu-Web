@@ -5,6 +5,7 @@ import { LightGray } from '../../assets/styles/palettes';
 import { useNavigate } from 'react-router-dom';
 import api from '../../api/api';
 import { useEffect, useState, useRef } from 'react';
+import no_image from '../../assets/images/no_image.png';
 
 interface Recipe {
   recipe_id: number;
@@ -60,7 +61,7 @@ function MyWishRecipeList() {
     navigate(`/recipe/${recipe.recipe_id}`, {
       state: {
         id: recipe.recipe_id,
-        img: recipe.recipe_image,
+        img: recipe.recipe_image || no_image,
         name: recipe.recipe_title,
       },
     });
@@ -103,7 +104,7 @@ function MyWishRecipeList() {
       {recipeListData.map((recipe) => (
         <RecipeCard key={recipe.recipe_id} onClick={() => moveToDetail(recipe)}>
           <ImgBox>
-            <img src={recipe.recipe_image} alt="레시피 이미지" style={{ width: '100%' }} />
+            <img src={recipe.recipe_image || no_image} alt="레시피 이미지" style={{ width: '100%' }} />
           </ImgBox>
           <ContentsBox>
             <HeaderBox>
