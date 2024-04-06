@@ -6,6 +6,7 @@ export const ReviewContainer = styled.div`
   padding: 1rem;
   column-gap: 1rem;
   grid-template-columns: 1fr 3fr;
+  padding-bottom: 5vh;
 `;
 
 export const ReviewBox = styled.div`

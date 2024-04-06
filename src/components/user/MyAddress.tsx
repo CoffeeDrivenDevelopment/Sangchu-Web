@@ -7,6 +7,7 @@ import { FlexColBox } from '../common/FlexColBox.ts';
 import Header from '../common/Header.tsx';
 import MainButton from '../common/MainButton.tsx';
 import patchUserAddress from '../../services/user/patchUserAddress.ts';
+import MyMap from '../../pages/user/MyMap.tsx';
 
 function MyAddress() {
   const [isShowPostCode, setIsShowPostCode] = useState<boolean>(false);
@@ -66,8 +67,8 @@ function MyAddress() {
       if (lat && lng) {
         const latNum = parseFloat(lat);
         const lngNum = parseFloat(lng);
-        setAddress(latNum, lngNum, addressName);
         await patchUserAddress(latNum, lngNum);
+        setAddress(latNum, lngNum, addressName);
         alert('주소 설정 완료!');
         setMyAddress('');
       }
@@ -108,6 +109,7 @@ function MyAddress() {
           ) : null}
         </FlexColBox>
       ) : null}
+      {address && address.lat && address?.lng ? <MyMap lat={address.lat} lng={address.lng} /> : null}
     </FlexColBox>
   );
 }

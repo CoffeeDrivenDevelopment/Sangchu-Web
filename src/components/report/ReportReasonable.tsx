@@ -50,6 +50,11 @@ function ReportReasonable() {
             <PointText>{reasonableData.price}원</PointText>
             <PointText>(목표가 대비+{reasonableData.diff}원)</PointText>
           </div>
+        ) : reasonableData.diff < 0 && reasonableData.diff !== reasonableData.price ? (
+          <div>
+            <PointText>{reasonableData.price}원</PointText>
+            <PointText>(목표가 대비{reasonableData.diff}원)</PointText>
+          </div>
         ) : (
           <div>
             <PointText>{reasonableData.price}원</PointText>

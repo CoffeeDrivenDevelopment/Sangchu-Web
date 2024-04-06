@@ -20,6 +20,7 @@ import getIngredientOnlineGraph from '../../services/ingredient/getIngredientOnl
 import useAddressStore from '../../stores/useAddressStore';
 import { formatDate } from '../Home/Home';
 import { UpdateText } from '../Home/Home.styled';
+import no_image from '../../assets/images/no_image.png';
 
 type TodayProps = {
   price: number;
@@ -27,10 +28,9 @@ type TodayProps = {
 };
 
 type IngredientGraphProps = {
-  offline: ChartDataProps[];
-  online: ChartDataProps[];
-  offlineToday: TodayProps;
-  onlineToday: TodayProps;
+  text: string;
+  data: ChartDataProps[];
+  today: TodayProps;
   updateAt: string;
 };
 
@@ -75,20 +75,14 @@ function IngredientsDetail() {
     navigate(`/ingredient/report/${ingredientId}`, { state: { name: detailData.name } });
   };
 
-  const ShowGraph = ({ offline, online, offlineToday, onlineToday, updateAt }: IngredientGraphProps) => {
-    const offlinechartRef = useRef<HTMLCanvasElement | null>(null);
-    const onlinechartRef = useRef<HTMLCanvasElement | null>(null);
-    const offlineList: number[] = [];
-    const onlineList: number[] = [];
+  const ShowGraph = ({ text, data, today, updateAt }: IngredientGraphProps) => {
+    const chartRef = useRef<HTMLCanvasElement | null>(null);
+    const dataList: number[] = [];
     const dateList: string[] = [];
 
-    for (let i = 0; i < offline.length; i++) {
-      offlineList.push(offline[i].price);
-      dateList.push(formatDate(offline[i].date));
-    }
-
-    for (let i = 0; i < online.length; i++) {
-      onlineList.push(online[i].price);
+    for (let i = 0; i < data.length; i++) {
+      dataList.push(data[i].price);
+      dateList.push(formatDate(data[i].date));
     }
 
     // if (offline) {
@@ -110,23 +104,13 @@ function IngredientsDetail() {
     //   .slice()
     //   .reverse()
     //   .map((info) => formatDate(info.date));
-    const offlineData = {
-      labels: dateList,
+    const chartData = {
+      labels: dateList.reverse(),
       datasets: [
         {
-          label: '오프라인 최저가',
+          label: text + '최저가',
           borderColor: main,
-          data: offlineList,
-        },
-      ],
-    };
-    const onlineData = {
-      labels: dateList,
-      datasets: [
-        {
-          label: '온라인 최저가',
-          borderColor: main,
-          data: onlineList,
+          data: dataList,
         },
       ],
     };
@@ -151,71 +135,58 @@ function IngredientsDetail() {
     } as const;
 
     useEffect(() => {
-      if (offlinechartRef.current && onlinechartRef.current) {
-        const offlineChart = new Chart(offlinechartRef.current, {
+      if (chartRef.current) {
+        const myChart = new Chart(chartRef.current, {
           type: 'line',
-          data: offlineData,
+          data: chartData,
           options: options,
         });
-        const onlineChart = new Chart(onlinechartRef.current, {
-          type: 'line',
-          data: onlineData,
-          options: options,
-        });
-        console.log('start');
+
         return () => {
-          if (offlineChart) offlineChart.destroy();
-          if (onlineChart) onlineChart.destroy();
+          if (myChart) myChart.destroy();
         };
       }
-    }, [online, offline]);
+    });
+
     return (
       <div style={{ padding: '1.25rem 1.25rem 0.8rem 1.25rem ', position: 'relative' }}>
         <UpdateText style={{ top: '1rem', right: '0.6rem' }}>{updateAt} 기준</UpdateText>
-        <h6 style={{ marginBottom: '0.625rem' }}>오프라인 가격추이</h6>
+        <h6 style={{ marginBottom: '0.625rem' }}>{text} 가격추이</h6>
 
-        {offline.length !== 0 ? (
-          <canvas ref={offlinechartRef} style={{ width: '90vw', height: '15vh' }}></canvas>
-        ) : (
+        {data.length !== 0 && data[0].price === 0 ? (
+          <EmptyData />
+        ) : data.length !== 0 && data[0].price !== 0 ? (
+          <canvas ref={chartRef} style={{ width: '90vw', height: '15vh' }}></canvas>
+        ) : data.length !== 0 && data[0].price !== 0 && text === '오프라인' ? (
           <div style={{ fontFamily: 'NanumSquareRoundB', fontSize: '12px' }}>
             설정한 위치의 3km이내에서 판매하지 않는 재료예요.
           </div>
-        )}
+        ) : null}
 
-        <FlexRowBox $alignItems="center" $justifyContent="center" $gap="0.1rem" $margin="0.9rem 0">
-          <h6>현재 최저가</h6>
-          {offlineToday.percent !== 0 ? (
-            <h4
-              style={{
-                color: offlineToday.percent < 0 ? 'blue' : 'red',
-              }}
-            >
-              {offlineToday.price}({offlineToday.percent}%)
-            </h4>
-          ) : (
-            <h4
-              style={{
-                color: main,
-              }}
-            >
-              {offlineToday.price}
-            </h4>
-          )}
-          <h6>원</h6>
-        </FlexRowBox>
-        <h6 style={{ marginBottom: '0.6rem' }}>온라인 가격추이</h6>
-        <canvas ref={onlinechartRef} style={{ width: '90vw', height: '15vh' }}></canvas>
-        <FlexRowBox $alignItems="center" $justifyContent="center" $gap="0.1rem" $margin="0.9rem 0">
-          <h6>현재 최저가</h6>
-          <h4
-            style={{
-              color: onlineToday.percent < 0 ? 'blue' : onlineToday.percent > 0 ? 'red' : 'black',
-            }}
-          >
-            {onlineToday.price}({onlineToday.percent > 0 ? `+${onlineToday.percent}` : onlineToday.percent}%)
-          </h4>
-          <h6>원</h6>
-        </FlexRowBox>
+        {data.length !== 0 && data[0].price !== 0 ? (
+          <FlexRowBox $alignItems="center" $justifyContent="center" $gap="0.1rem" $margin="0.9rem 0">
+            <h6>현재 최저가</h6>
+            {today.percent !== 0 ? (
+              <h4
+                style={{
+                  color: today.percent < 0 ? 'blue' : 'red',
+                }}
+              >
+                {today.price}({today.percent}%)
+              </h4>
+            ) : (
+              <h4
+                style={{
+                  color: main,
+                }}
+              >
+                {today.price}
+              </h4>
+            )}
+            <h6>원</h6>
+          </FlexRowBox>
+        ) : null}
+
         <ScrollTopButton />
       </div>
     );
@@ -226,17 +197,12 @@ function IngredientsDetail() {
       {/* 농수산물 상세 정보 조회(이름, 구매요령, 이미지)*/}
       <div>
         <Header name={detailData.name} openModal={() => openModal()} isHelp={true} />
-        <ImageContainer photo={detailData.img} />
+        <ImageContainer photo={detailData.img || no_image} />
         {isModalClick && <HelpModal knowHow={detailData['know-how']} onClose={closeModal} />}
       </div>
       <div>
-        <ShowGraph
-          offline={offlineData.data}
-          online={onlineData.data}
-          offlineToday={offlineData.today}
-          onlineToday={onlineData.today}
-          updateAt={onlineData.updateAt}
-        />
+        <ShowGraph text="오프라인" data={offlineData.data} today={offlineData.today} updateAt={onlineData.updateAt} />
+        <ShowGraph text="온라인" data={onlineData.data} today={onlineData.today} updateAt={onlineData.updateAt} />
       </div>
       {ingredientId ? (
         <div>

@@ -12,10 +12,11 @@ import useRecipeCategoryStore from '../../stores/useRecipeCategoryStore';
 import postRecipeLike from '../../services/recipe/postRecipeLike';
 import deleteRecipeLike from '../../services/recipe/deleteRecipeLike';
 import ScrollTopButton from '../common/ScrollTopButton';
+import no_image from '../../assets/images/no_image.png';
 
 const RecipeCard = styled.div`
   display: grid;
-  grid-template-columns: 1fr 2.5fr; /* 여기서 1:2 비율로 컬럼을 설정합니다 */
+  grid-template-columns: 1fr 2.5fr;
   align-items: center;
   border-radius: 20px;
   height: 130px;
@@ -110,9 +111,9 @@ function RecipeListCard() {
         size: 10,
       }),
   });
-
   if (recipeListLoading) return <LoadingSpinner />;
   if (!recipeListData) return <EmptyData />;
+  // const Recipe_image = recipeListData.recipes.ima ? recipeListData.img : no_image;
 
   return (
     <FlexColBox $margin="1rem" $gap="1rem">
@@ -127,10 +128,12 @@ function RecipeListCard() {
               <img src={unlikeImg} alt="연한 숟가락" width={'25vw'} onClick={() => handleLike(recipe.id)} />
             </LikeDiv>
           )}
-          <RecipeCard onClick={() => moveToDetail(recipe.id, recipe.image, recipe.name)}>
+
+
+          <RecipeCard onClick={() => moveToDetail(recipe.id, recipe.image || no_image, recipe.name)}>
             <ImgBox>
               <img
-                src={recipe.image}
+                src={recipe.image || no_image}
                 alt="레시피 이미지"
                 style={{ width: '100%', height: '100%', borderRadius: '10px' }}
               />

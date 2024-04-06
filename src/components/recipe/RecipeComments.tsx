@@ -294,6 +294,7 @@ const MainBox = styled.div`
   color: white;
   overflow-y: 'auto';
   height: 100%;
+  padding-bottom: 5vh;
 `;
 const InputBox = styled(FlexColBox)`
   align-items: center;
