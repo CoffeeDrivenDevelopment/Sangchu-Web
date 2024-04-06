@@ -157,7 +157,7 @@ function Ingredients() {
               <IconBox
                 img={rankInfo.ingredient_image || no_image}
                 text={rankInfo.ingredient_name}
-                percent={((rankInfo.curr_price - rankInfo.prev_price) / rankInfo.prev_price) * 100}
+                percent={rankInfo.percent}
               />
             </div>
           ))}
@@ -171,7 +171,7 @@ function Ingredients() {
               <IconBox
                 img={rankInfo.ingredient_image || no_image}
                 text={rankInfo.ingredient_name}
-                percent={((rankInfo.curr_price - rankInfo.prev_price) / rankInfo.prev_price) * 100}
+                percent={rankInfo.percent}
               />
             </div>
           ))}

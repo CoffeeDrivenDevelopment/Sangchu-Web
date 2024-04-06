@@ -40,9 +40,9 @@ function IconBox({ img, text, percent }: IconBoxProps) {
           <img src={img} style={{ width: '55px', height: '55px' }} />
           {percent &&
             (percent > 0 ? (
-              <PercentAscArea>{`${percent.toFixed(2)}%`}</PercentAscArea>
+              <PercentAscArea>{`${percent}%`}</PercentAscArea>
             ) : (
-              <PercentDescArea>{`${percent.toFixed(2)}%`}</PercentDescArea>
+              <PercentDescArea>{`${percent}%`}</PercentDescArea>
             ))}
         </Paper>
       </Box>
