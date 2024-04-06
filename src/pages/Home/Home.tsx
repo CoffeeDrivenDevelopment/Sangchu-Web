@@ -102,7 +102,7 @@ function Ingredients({ ingredient, updateAt }: RecommendIngredientFuncProps) {
   // 차트 데이터 가져오기
   useEffect(() => {
     const data = {
-      labels: dateList.reverse(),
+      labels: dateList,
       datasets: [
         {
           label: '온라인 최저가',

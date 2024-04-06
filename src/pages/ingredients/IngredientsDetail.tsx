@@ -105,7 +105,7 @@ function IngredientsDetail() {
     //   .reverse()
     //   .map((info) => formatDate(info.date));
     const chartData = {
-      labels: dateList.reverse(),
+      labels: dateList,
       datasets: [
         {
           label: text + '최저가',

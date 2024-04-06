@@ -41,11 +41,14 @@ function MyWishRecipeList() {
         setIsLoading(true);
         const member_id = localStorage.getItem('member_id');
         const response = await api.get<RecipeResponse>(
-          `/recipe-service/v1/likes/${member_id}?page=${currentPage}&size=10&sort=asc`,
+          // `/recipe-service/v1/likes/${member_id}?page=${currentPage}&sort=asc`,
+          `/recipe-service/v1/likes/${member_id}?page=${currentPage}`,
         );
         setTotalPages(response.data.body.recipes.totalPages);
         setRecipeListData((prevRecipes) => [...prevRecipes, ...response.data.body.recipes.content]);
         console.log('찜한 레시피 조회 성공', response.data.body.recipes);
+        console.log('current page number', currentPage);
+        
       } catch (error) {
         console.log('찜한 레시피 요청 실패', error);
         console.log('현재 페이지', currentPage);
@@ -96,6 +99,7 @@ function MyWishRecipeList() {
     } catch (error) {
       console.log(error);
       console.log('id', id);
+      setRecipeListData((prevRecipes) => prevRecipes.filter((recipe) => recipe.recipe_id !== id)); // 일단 요청 실패해도 삭제
     }
   };
 
