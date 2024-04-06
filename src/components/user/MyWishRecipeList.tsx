@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { FlexColBox } from '../common/FlexColBox';
-import unlikeImg from '../../assets/images/recipeUnlike.png';
+import likeImg from '../../assets/images/recipeLike.png';
 import { LightGray } from '../../assets/styles/palettes';
 import { useNavigate } from 'react-router-dom';
 import api from '../../api/api';
@@ -115,7 +115,7 @@ function MyWishRecipeList() {
                   unLike(recipe.id);
                 }}
               >
-                <img src={unlikeImg} alt="연한 숟가락" width={'25vw'} />
+                <img src={likeImg} alt="연한 숟가락" width={'25vw'} />
               </UnlikeButton>
             </HeaderBox>
 
