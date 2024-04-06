@@ -1,8 +1,8 @@
 import Header from '../../components/common/Header';
 import ScrollToggleBar from '../../components/common/ScrollToggleBar';
 import styled from '@emotion/styled';
-import MainButton from '../../components/common/MainButton';
-import { LightGray, main } from '../../assets/styles/palettes';
+// import MainButton from '../../components/common/MainButton';
+// import { LightGray, main } from '../../assets/styles/palettes';
 import { useState, useEffect } from 'react';
 import useToggleStore from '../../stores/useToggleStore';
 import { useQuery } from '@tanstack/react-query';
@@ -19,10 +19,10 @@ const SubHeader = styled.div`
   align-items: center;
 `;
 
-const FilterArea = styled.div`
-  gap: 1rem;
-  display: flex;
-`;
+// const FilterArea = styled.div`
+//   gap: 1rem;
+//   display: flex;
+// `;
 
 const ContentsArea = styled.div`
   display: grid;
@@ -32,17 +32,17 @@ const ContentsArea = styled.div`
 
 function IngredientList() {
   const navigate = useNavigate();
-  const [filterState, setFilterState] = useState<number>(0);
+  // const [filterState, setFilterState] = useState<number>(0);
   const [initialValue, setInitialValue] = useState<number>(0);
   const { categoryValue, categoryName } = useToggleStore();
 
-  const latestOrder = () => {
-    setFilterState(0);
-  };
+  // const latestOrder = () => {
+  //   setFilterState(0);
+  // };
 
-  const popularOrder = () => {
-    setFilterState(1);
-  };
+  // const popularOrder = () => {
+  //   setFilterState(1);
+  // };
 
   const moveToDetail = (id: number) => {
     navigate(`/ingredient/${id}`);
@@ -70,7 +70,7 @@ function IngredientList() {
       <Header />
       <ScrollToggleBar labelType="ingredient" initialValue={initialValue} />
       <SubHeader>
-        {filterState == 0 ? (
+        {/* filterState == 0 ? (
           <FilterArea>
             <div onClick={() => latestOrder()}>
               <MainButton text="최신순" backgroundColor={main} />
@@ -88,7 +88,7 @@ function IngredientList() {
               <MainButton text="인기순" backgroundColor={main} />
             </div>
           </FilterArea>
-        )}
+        ) */}
         <span></span>
       </SubHeader>
       <ContentsArea>
