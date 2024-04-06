@@ -9,8 +9,7 @@ type RankDescInfoProps = {
   ingredient_id: number;
   ingredient_name: string;
   ingredient_image: string;
-  prev_price: number;
-  curr_price: number;
+  percent: number;
 };
 
 type ResponseProps = {
