@@ -173,11 +173,13 @@ function Ingredients({ ingredient, updateAt }: RecommendIngredientFuncProps) {
             <FlexColBox $gap="10px" $alignItems="center" $justifyContent="center">
               <FlexColBox $alignItems="center">
                 <h6>온라인 최저가</h6>
-                <S.TodayPriceText>{onlineList[5]}원</S.TodayPriceText>
+                <S.TodayPriceText>{onlineList[5].toLocaleString('ko-KR')}원</S.TodayPriceText>
               </FlexColBox>
               <FlexColBox $alignItems="center">
                 <h6>오프라인 최저가</h6>
-                <S.TodayPriceText style={{ color: 'rgb(240, 106, 106)' }}>{offlineList[5]}원</S.TodayPriceText>
+                <S.TodayPriceText style={{ color: 'rgb(240, 106, 106)' }}>
+                  {offlineList[5].toLocaleString('ko-KR')}원
+                </S.TodayPriceText>
               </FlexColBox>
             </FlexColBox>
           </FlexRowBox>

@@ -125,8 +125,8 @@ function MyPriceList() {
           </ChartContainer>
           <Context onClick={() => onClickDetail(item.ingredient_id)}>
             <Ingredient>{item.ingredient_name}</Ingredient>
-            <OnlinePrice>{item.current_online_price}원</OnlinePrice>
-            <OfflinePrice>{item.current_offline_price}원</OfflinePrice>
+            <OnlinePrice>{item.current_online_price.toLocaleString('ko-KR')}원</OnlinePrice>
+            <OfflinePrice>{item.current_offline_price.toLocaleString('ko-KR')}원</OfflinePrice>
           </Context>
         </Container>
       ))}

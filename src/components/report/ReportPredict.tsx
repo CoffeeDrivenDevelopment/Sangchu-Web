@@ -49,7 +49,7 @@ function ReportPredict({ name }: NameProps) {
               color: predictData.cost.percent < 0 ? 'blue' : predictData.cost.percent > 0 ? 'red' : 'black',
             }}
           >
-            <h6>{predictData.cost.price}원</h6>
+            <h6>{predictData.cost.price.toLocaleString('ko-KR')}원</h6>
             <h6>({predictData.cost.percent > 0 ? `+${predictData.cost.percent}` : predictData.cost.percent}%)</h6>
           </FlexRowBox>
           <div>으로 가격이 예상돼요.</div>
