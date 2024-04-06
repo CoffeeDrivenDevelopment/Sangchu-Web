@@ -172,7 +172,7 @@ function IngredientsDetail() {
                   color: today.percent < 0 ? 'blue' : 'red',
                 }}
               >
-                {today.price}({today.percent}%)
+                {today.price.toLocaleString('ko-KR')}({today.percent}%)
               </h4>
             ) : (
               <h4
@@ -180,7 +180,7 @@ function IngredientsDetail() {
                   color: main,
                 }}
               >
-                {today.price}
+                {today.price.toLocaleString('ko-KR')}
               </h4>
             )}
             <h6>원</h6>

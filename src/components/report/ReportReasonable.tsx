@@ -48,21 +48,21 @@ function ReportReasonable() {
         {reasonableData.diff > 0 && reasonableData.diff !== reasonableData.price ? (
           <div>
             <PointText>{reasonableData.price}원</PointText>
-            <PointText>(목표가 대비+{reasonableData.diff}원)</PointText>
+            <PointText>(목표가 대비+{reasonableData.diff.toLocaleString('ko-KR')}원)</PointText>
           </div>
         ) : reasonableData.diff < 0 && reasonableData.diff !== reasonableData.price ? (
           <div>
             <PointText>{reasonableData.price}원</PointText>
-            <PointText>(목표가 대비{reasonableData.diff}원)</PointText>
+            <PointText>(목표가 대비{reasonableData.diff.toLocaleString('ko-KR')}원)</PointText>
           </div>
         ) : (
           <div>
-            <PointText>{reasonableData.price}원</PointText>
+            <PointText>{reasonableData.price.toLocaleString('ko-KR')}원</PointText>
           </div>
         )}
         <div>지금 많은 사람들이 {attachParticle(reasonableData.name)}</div>
         <FlexRowBox>
-          <PointText style={{ fontSize: '15px' }}>{reasonableData.price}</PointText>
+          <PointText style={{ fontSize: '15px' }}>{reasonableData.price.toLocaleString('ko-KR')}</PointText>
           <div>원에 사고 싶어해요.</div>
         </FlexRowBox>
       </FlexColBox>

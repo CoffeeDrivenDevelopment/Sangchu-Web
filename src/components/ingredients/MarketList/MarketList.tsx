@@ -66,7 +66,9 @@ function MarketList({ id }: { id: number }) {
             <FlexRowBox $justifyContent="space-between" $alignItems="center" $width="100%">
               <FlexColBox $gap="3px">
                 <S.MarketText>{market.name}</S.MarketText>
-                <S.MarketText style={{ fontFamily: 'NanumSquareRoundB' }}>{market.price}원</S.MarketText>
+                <S.MarketText style={{ fontFamily: 'NanumSquareRoundB' }}>
+                  {market.price.toLocaleString('ko-KR')}원
+                </S.MarketText>
               </FlexColBox>
 
               <S.MapBox onClick={() => handleMap(market.lat, market.lng, market.name)}>
@@ -99,7 +101,9 @@ function MarketList({ id }: { id: number }) {
               <FlexColBox>
                 <FlexColBox $gap="3px">
                   <S.MarketText>{market.market_name}</S.MarketText>
-                  <S.MarketText style={{ fontFamily: 'NanumSquareRoundB' }}>{market.price}원</S.MarketText>
+                  <S.MarketText style={{ fontFamily: 'NanumSquareRoundB' }}>
+                    {market.price.toLocaleString('ko-KR')}원
+                  </S.MarketText>
                 </FlexColBox>
               </FlexColBox>
             </FlexRowBox>
@@ -115,7 +119,6 @@ function MarketList({ id }: { id: number }) {
 
   return (
     <div style={{ padding: '20px', position: 'relative' }}>
-
       <FlexColBox $margin="3vh 0 3vh 0">
         <FlexRowBox $alignItems="center" $gap="3px">
           <img src={low_price} style={{ width: '35px', height: '35px' }} />
