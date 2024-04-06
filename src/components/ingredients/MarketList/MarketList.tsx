@@ -115,15 +115,6 @@ function MarketList({ id }: { id: number }) {
 
   return (
     <div style={{ padding: '20px', position: 'relative' }}>
-      <FlexColBox $margin="0 0 20px 0">
-        <FlexRowBox $alignItems="center" $gap="3px">
-          <img src={low_price} style={{ width: '35px', height: '35px' }} />
-          <h6>오프라인 최저가</h6>
-        </FlexRowBox>
-        <S.SubText>내 주변 시장의 최저가입니다.</S.SubText>
-      </FlexColBox>
-
-      {renderOfflineMarkets()}
 
       <FlexColBox $margin="3vh 0 3vh 0">
         <FlexRowBox $alignItems="center" $gap="3px">
@@ -133,6 +124,16 @@ function MarketList({ id }: { id: number }) {
       </FlexColBox>
 
       {renderOnlineMarkets()}
+
+      <FlexColBox $margin="0 0 20px 0">
+        <FlexRowBox $alignItems="center" $gap="3px">
+          <img src={low_price} style={{ width: '35px', height: '35px' }} />
+          <h6>오프라인 최저가</h6>
+        </FlexRowBox>
+        <S.SubText>내 주변 시장의 최저가입니다.</S.SubText>
+      </FlexColBox>
+
+      {renderOfflineMarkets()}
     </div>
   );
 }

@@ -1,120 +1,687 @@
 {
   "message": "추천 재료 조회 성공",
   "body": {
-    "updateAt": "2021-07-27 10:00:00",
+    "updateAt": "2024년 04월 03일 16시 54분 42초",
     "ingredients": [
       {
-        "name": "한우등심",
-        "img": "https://m.gosanmiso.com/web/product/big/202104/68abc49bf85d908ceef05450cedac1f4.jpg",
-        "online": [
-          {
-            "date": "2021-07-20",
-            "price": 100000
-          },
-          {
-            "date": "2021-07-27",
-            "price": 120000
-          },
-          {
-            "date": "2021-08-04",
-            "price": 120000
-          },
-          {
-            "date": "2021-08-11",
-            "price": 110000
-          },
-          {
-            "date": "2021-08-18",
-            "price": 140000
-          },
-          {
-            "date": "2021-08-24",
-            "price": 130000
-          }
-        ],
-        "offline": [
-          {
-            "date": "2021-07-20",
-            "price": 150000
-          },
-          {
-            "date": "2021-07-27",
-            "price": 170000
-          },
-          {
-            "date": "2021-08-04",
-            "price": 180000
-          },
-          {
-            "date": "2021-08-11",
-            "price": 170000
-          },
-          {
-            "date": "2021-08-18",
-            "price": 150000
-          },
-          {
-            "date": "2021-08-24",
-            "price": 160000
-          }
-        ]
+        "key": "recommend-ingredient-1",
+        "ingredients": {
+          "id": 75,
+          "name": "콩",
+          "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9oN8EEmjHFEMPczyym88pFYZgNHsnWsPpHSdJCEWjiJfervQUXVmc_tdbqiPFxKe-rI4&usqp=CAU",
+          "online": [
+            {
+              "date": "2024-04-03",
+              "price": 14201
+            },
+            {
+              "date": "2024-03-30",
+              "price": 12912
+            },
+            {
+              "date": "2024-03-26",
+              "price": 7776
+            },
+            {
+              "date": "2024-03-22",
+              "price": 9232
+            },
+            {
+              "date": "2024-03-18",
+              "price": 5784
+            },
+            {
+              "date": "2024-03-14",
+              "price": 9044
+            },
+            {
+              "date": "2024-03-10",
+              "price": 14627
+            }
+          ],
+          "offline": [
+            {
+              "date": "2024-04-03",
+              "price": 6439
+            },
+            {
+              "date": "2024-03-30",
+              "price": 12112
+            },
+            {
+              "date": "2024-03-26",
+              "price": 10235
+            },
+            {
+              "date": "2024-03-22",
+              "price": 8642
+            },
+            {
+              "date": "2024-03-18",
+              "price": 10397
+            },
+            {
+              "date": "2024-03-14",
+              "price": 12844
+            },
+            {
+              "date": "2024-03-10",
+              "price": 10332
+            }
+          ]
+        }
       },
-
       {
-        "name": "호박고구마",
-        "img": "https://res.heraldm.com/phpwas/restmb_idxmake.php?idx=507&simg=/content/image/2017/11/10/20171110000714_0.jpg",
-        "online": [
-          {
-            "date": "2021-07-20",
-            "price": 21000
-          },
-          {
-            "date": "2021-07-27",
-            "price": 22000
-          },
-          {
-            "date": "2021-08-04",
-            "price": 22000
-          },
-          {
-            "date": "2021-08-11",
-            "price": 21000
-          },
-          {
-            "date": "2021-08-18",
-            "price": 24000
-          },
-          {
-            "date": "2021-08-24",
-            "price": 23000
-          }
-        ],
-        "offline": [
-          {
-            "date": "2021-07-20",
-            "price": 21000
-          },
-          {
-            "date": "2021-07-27",
-            "price": 22000
-          },
-          {
-            "date": "2021-08-04",
-            "price": 22000
-          },
-          {
-            "date": "2021-08-11",
-            "price": 27000
-          },
-          {
-            "date": "2021-08-18",
-            "price": 25000
-          },
-          {
-            "date": "2021-08-24",
-            "price": 26000
-          }
-        ]
+        "key": "recommend-ingredient-2",
+        "ingredients": {
+          "id": 70,
+          "name": "대파",
+          "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9oN8EEmjHFEMPczyym88pFYZgNHsnWsPpHSdJCEWjiJfervQUXVmc_tdbqiPFxKe-rI4&usqp=CAU",
+          "online": [
+            {
+              "date": "2024-04-03",
+              "price": 11055
+            },
+            {
+              "date": "2024-03-30",
+              "price": 8575
+            },
+            {
+              "date": "2024-03-26",
+              "price": 6983
+            },
+            {
+              "date": "2024-03-22",
+              "price": 8679
+            },
+            {
+              "date": "2024-03-18",
+              "price": 15197
+            },
+            {
+              "date": "2024-03-14",
+              "price": 7275
+            },
+            {
+              "date": "2024-03-10",
+              "price": 7738
+            }
+          ],
+          "offline": [
+            {
+              "date": "2024-04-03",
+              "price": 13842
+            },
+            {
+              "date": "2024-03-30",
+              "price": 8402
+            },
+            {
+              "date": "2024-03-26",
+              "price": 10430
+            },
+            {
+              "date": "2024-03-22",
+              "price": 11968
+            },
+            {
+              "date": "2024-03-18",
+              "price": 6633
+            },
+            {
+              "date": "2024-03-14",
+              "price": 7800
+            },
+            {
+              "date": "2024-03-10",
+              "price": 11006
+            }
+          ]
+        }
+      },
+      {
+        "key": "recommend-ingredient-3",
+        "ingredients": {
+          "id": 72,
+          "name": "파프리카",
+          "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9oN8EEmjHFEMPczyym88pFYZgNHsnWsPpHSdJCEWjiJfervQUXVmc_tdbqiPFxKe-rI4&usqp=CAU",
+          "online": [
+            {
+              "date": "2024-04-03",
+              "price": 8563
+            },
+            {
+              "date": "2024-03-30",
+              "price": 7438
+            },
+            {
+              "date": "2024-03-26",
+              "price": 9617
+            },
+            {
+              "date": "2024-03-22",
+              "price": 11071
+            },
+            {
+              "date": "2024-03-18",
+              "price": 11465
+            },
+            {
+              "date": "2024-03-14",
+              "price": 10153
+            },
+            {
+              "date": "2024-03-10",
+              "price": 10667
+            }
+          ],
+          "offline": [
+            {
+              "date": "2024-04-03",
+              "price": 10545
+            },
+            {
+              "date": "2024-03-30",
+              "price": 3749
+            },
+            {
+              "date": "2024-03-26",
+              "price": 10393
+            },
+            {
+              "date": "2024-03-22",
+              "price": 9231
+            },
+            {
+              "date": "2024-03-18",
+              "price": 9787
+            },
+            {
+              "date": "2024-03-14",
+              "price": 7545
+            },
+            {
+              "date": "2024-03-10",
+              "price": 7051
+            }
+          ]
+        }
+      },
+      {
+        "key": "recommend-ingredient-4",
+        "ingredients": {
+          "id": 68,
+          "name": "버섯",
+          "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9oN8EEmjHFEMPczyym88pFYZgNHsnWsPpHSdJCEWjiJfervQUXVmc_tdbqiPFxKe-rI4&usqp=CAU",
+          "online": [
+            {
+              "date": "2024-04-03",
+              "price": 11936
+            },
+            {
+              "date": "2024-03-30",
+              "price": 8138
+            },
+            {
+              "date": "2024-03-26",
+              "price": 12667
+            },
+            {
+              "date": "2024-03-22",
+              "price": 7716
+            },
+            {
+              "date": "2024-03-18",
+              "price": 10831
+            },
+            {
+              "date": "2024-03-14",
+              "price": 10081
+            },
+            {
+              "date": "2024-03-10",
+              "price": 10749
+            }
+          ],
+          "offline": [
+            {
+              "date": "2024-04-03",
+              "price": 14536
+            },
+            {
+              "date": "2024-03-30",
+              "price": 6474
+            },
+            {
+              "date": "2024-03-26",
+              "price": 6604
+            },
+            {
+              "date": "2024-03-22",
+              "price": 11489
+            },
+            {
+              "date": "2024-03-18",
+              "price": 12732
+            },
+            {
+              "date": "2024-03-14",
+              "price": 9010
+            },
+            {
+              "date": "2024-03-10",
+              "price": 8992
+            }
+          ]
+        }
+      },
+      {
+        "key": "recommend-ingredient-5",
+        "ingredients": {
+          "id": 71,
+          "name": "깐마늘",
+          "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9oN8EEmjHFEMPczyym88pFYZgNHsnWsPpHSdJCEWjiJfervQUXVmc_tdbqiPFxKe-rI4&usqp=CAU",
+          "online": [
+            {
+              "date": "2024-04-03",
+              "price": 7995
+            },
+            {
+              "date": "2024-03-30",
+              "price": 9575
+            },
+            {
+              "date": "2024-03-26",
+              "price": 7027
+            },
+            {
+              "date": "2024-03-22",
+              "price": 8560
+            },
+            {
+              "date": "2024-03-18",
+              "price": 11979
+            },
+            {
+              "date": "2024-03-14",
+              "price": 15878
+            },
+            {
+              "date": "2024-03-10",
+              "price": 14948
+            }
+          ],
+          "offline": [
+            {
+              "date": "2024-04-03",
+              "price": 11697
+            },
+            {
+              "date": "2024-03-30",
+              "price": 9820
+            },
+            {
+              "date": "2024-03-26",
+              "price": 14797
+            },
+            {
+              "date": "2024-03-22",
+              "price": 11362
+            },
+            {
+              "date": "2024-03-18",
+              "price": 8334
+            },
+            {
+              "date": "2024-03-14",
+              "price": 10569
+            },
+            {
+              "date": "2024-03-10",
+              "price": 14548
+            }
+          ]
+        }
+      },
+      {
+        "key": "recommend-ingredient-6",
+        "ingredients": {
+          "id": 66,
+          "name": "고구마",
+          "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9oN8EEmjHFEMPczyym88pFYZgNHsnWsPpHSdJCEWjiJfervQUXVmc_tdbqiPFxKe-rI4&usqp=CAU",
+          "online": [
+            {
+              "date": "2024-04-03",
+              "price": 11972
+            },
+            {
+              "date": "2024-03-30",
+              "price": 13906
+            },
+            {
+              "date": "2024-03-26",
+              "price": 13232
+            },
+            {
+              "date": "2024-03-22",
+              "price": 10033
+            },
+            {
+              "date": "2024-03-18",
+              "price": 13187
+            },
+            {
+              "date": "2024-03-14",
+              "price": 10246
+            },
+            {
+              "date": "2024-03-10",
+              "price": 6872
+            }
+          ],
+          "offline": [
+            {
+              "date": "2024-04-03",
+              "price": 10127
+            },
+            {
+              "date": "2024-03-30",
+              "price": 10293
+            },
+            {
+              "date": "2024-03-26",
+              "price": 10167
+            },
+            {
+              "date": "2024-03-22",
+              "price": 8853
+            },
+            {
+              "date": "2024-03-18",
+              "price": 12278
+            },
+            {
+              "date": "2024-03-14",
+              "price": 11754
+            },
+            {
+              "date": "2024-03-10",
+              "price": 6134
+            }
+          ]
+        }
+      },
+      {
+        "key": "recommend-ingredient-7",
+        "ingredients": {
+          "id": 76,
+          "name": "깻잎",
+          "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9oN8EEmjHFEMPczyym88pFYZgNHsnWsPpHSdJCEWjiJfervQUXVmc_tdbqiPFxKe-rI4&usqp=CAU",
+          "online": [
+            {
+              "date": "2024-04-03",
+              "price": 5173
+            },
+            {
+              "date": "2024-03-30",
+              "price": 10003
+            },
+            {
+              "date": "2024-03-26",
+              "price": 5809
+            },
+            {
+              "date": "2024-03-22",
+              "price": 9228
+            },
+            {
+              "date": "2024-03-18",
+              "price": 15197
+            },
+            {
+              "date": "2024-03-14",
+              "price": 10903
+            },
+            {
+              "date": "2024-03-10",
+              "price": 14120
+            }
+          ],
+          "offline": [
+            {
+              "date": "2024-04-03",
+              "price": 14560
+            },
+            {
+              "date": "2024-03-30",
+              "price": 14063
+            },
+            {
+              "date": "2024-03-26",
+              "price": 11839
+            },
+            {
+              "date": "2024-03-22",
+              "price": 16133
+            },
+            {
+              "date": "2024-03-18",
+              "price": 11444
+            },
+            {
+              "date": "2024-03-14",
+              "price": 8429
+            },
+            {
+              "date": "2024-03-10",
+              "price": 13358
+            }
+          ]
+        }
+      },
+      {
+        "key": "recommend-ingredient-8",
+        "ingredients": {
+          "id": 69,
+          "name": "토마토",
+          "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9oN8EEmjHFEMPczyym88pFYZgNHsnWsPpHSdJCEWjiJfervQUXVmc_tdbqiPFxKe-rI4&usqp=CAU",
+          "online": [
+            {
+              "date": "2024-04-03",
+              "price": 13329
+            },
+            {
+              "date": "2024-03-30",
+              "price": 15403
+            },
+            {
+              "date": "2024-03-26",
+              "price": 8508
+            },
+            {
+              "date": "2024-03-22",
+              "price": 9348
+            },
+            {
+              "date": "2024-03-18",
+              "price": 9607
+            },
+            {
+              "date": "2024-03-14",
+              "price": 11645
+            },
+            {
+              "date": "2024-03-10",
+              "price": 5256
+            }
+          ],
+          "offline": [
+            {
+              "date": "2024-04-03",
+              "price": 10199
+            },
+            {
+              "date": "2024-03-30",
+              "price": 10948
+            },
+            {
+              "date": "2024-03-26",
+              "price": 13059
+            },
+            {
+              "date": "2024-03-22",
+              "price": 8757
+            },
+            {
+              "date": "2024-03-18",
+              "price": 11606
+            },
+            {
+              "date": "2024-03-14",
+              "price": 11675
+            },
+            {
+              "date": "2024-03-10",
+              "price": 8286
+            }
+          ]
+        }
+      },
+      {
+        "key": "recommend-ingredient-9",
+        "ingredients": {
+          "id": 73,
+          "name": "풋고추",
+          "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9oN8EEmjHFEMPczyym88pFYZgNHsnWsPpHSdJCEWjiJfervQUXVmc_tdbqiPFxKe-rI4&usqp=CAU",
+          "online": [
+            {
+              "date": "2024-04-03",
+              "price": 8728
+            },
+            {
+              "date": "2024-03-30",
+              "price": 11729
+            },
+            {
+              "date": "2024-03-26",
+              "price": 13371
+            },
+            {
+              "date": "2024-03-22",
+              "price": 7855
+            },
+            {
+              "date": "2024-03-18",
+              "price": 10230
+            },
+            {
+              "date": "2024-03-14",
+              "price": 11081
+            },
+            {
+              "date": "2024-03-10",
+              "price": 8134
+            }
+          ],
+          "offline": [
+            {
+              "date": "2024-04-03",
+              "price": 4870
+            },
+            {
+              "date": "2024-03-30",
+              "price": 9742
+            },
+            {
+              "date": "2024-03-26",
+              "price": 8915
+            },
+            {
+              "date": "2024-03-22",
+              "price": 8948
+            },
+            {
+              "date": "2024-03-18",
+              "price": 17998
+            },
+            {
+              "date": "2024-03-14",
+              "price": 11205
+            },
+            {
+              "date": "2024-03-10",
+              "price": 9378
+            }
+          ]
+        }
+      },
+      {
+        "key": "recommend-ingredient-10",
+        "ingredients": {
+          "id": 74,
+          "name": "시금치",
+          "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9oN8EEmjHFEMPczyym88pFYZgNHsnWsPpHSdJCEWjiJfervQUXVmc_tdbqiPFxKe-rI4&usqp=CAU",
+          "online": [
+            {
+              "date": "2024-04-03",
+              "price": 6991
+            },
+            {
+              "date": "2024-03-30",
+              "price": 13666
+            },
+            {
+              "date": "2024-03-26",
+              "price": 4780
+            },
+            {
+              "date": "2024-03-22",
+              "price": 9189
+            },
+            {
+              "date": "2024-03-18",
+              "price": 9705
+            },
+            {
+              "date": "2024-03-14",
+              "price": 11154
+            },
+            {
+              "date": "2024-03-10",
+              "price": 12575
+            }
+          ],
+          "offline": [
+            {
+              "date": "2024-04-03",
+              "price": 11623
+            },
+            {
+              "date": "2024-03-30",
+              "price": 9203
+            },
+            {
+              "date": "2024-03-26",
+              "price": 9764
+            },
+            {
+              "date": "2024-03-22",
+              "price": 7738
+            },
+            {
+              "date": "2024-03-18",
+              "price": 13486
+            },
+            {
+              "date": "2024-03-14",
+              "price": 8260
+            },
+            {
+              "date": "2024-03-10",
+              "price": 13749
+            }
+          ]
+        }
       }
     ]
   }

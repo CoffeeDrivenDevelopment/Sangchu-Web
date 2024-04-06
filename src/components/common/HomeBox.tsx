@@ -5,6 +5,7 @@ type HomeBoxProps = {
   children: React.ReactNode;
 };
 
+// 사용하지 않게 된 컴포넌트 -> 삭제예정
 const HomeBox = ({ height, children }: HomeBoxProps) => {
   return (
     <Box

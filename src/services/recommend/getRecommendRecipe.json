@@ -1,17 +1,45 @@
 {
   "message": "추천 메뉴 조회 성공",
   "body": {
+    "key": "recommend-recipe-9",
     "recipe": {
-      "name": "김치 짜글이",
-      "img": "https://doewxs707ovkc.cloudfront.net/v3/prod/image/item/mainpage/905/2a9e485db84141e6a7810878fec895af20210705223349.",
-      "tags": ["국물/찌개", "한식"],
-      "ingredients": "고구마 100g(2/3개), 설탕 2g(1/3작은술),찹쌀가루 3g(2/3작은술), 물 200ml(1컵), 잣 8g(8알)"
+      "id": 34850,
+      "name": "딸기생크림케이크",
+      "img": "https://recipe1.ezmember.co.kr/cache/recipe/2016/04/05/a54c50d57904d380c9a959690622dd7b1.jpg",
+      "tags": ["간식", "달걀/유제품", "빵"],
+      "ingredients": "제누와즈2호 1개, 동물성 생크림 320+20g, 설탕 30g, 바닐라빈 1/2개, 럼 1ts, 딸기, 애플민트 적당량 ,설탕 25g, 물 50g, 럼 1ts"
     },
-    "cooking-movie": {
-      "url": "https://youtube.com",
-      "image": "https://i.ytimg.com/vi/tX_AVIgBIT4/hqdefault.jpg",
-      "title": "백선생님 마음대로 넣어 만든 김치짜글이",
-      "content": "들어는 봤나 짜글이, 고기외에는 마음대로 넣어만드는 김치짜글이 레시피"
-    }
+    "cooking-movies": [
+      {
+        "url": "https://www.youtube.com/watch?v=FSQbWEIEnCM",
+        "thumbnail": "https://i.ytimg.com/vi/FSQbWEIEnCM/hqdefault.jpg",
+        "title": "Sub) 순우유맛 가득한 진짜 맛있는 황금비율❤️딸기 생크림 케이크 만들기 (New버전!!)",
+        "content": "만드는 방법 더 자세히 보기 '좋아요'와 '구독'은 컨텐츠 제작에 큰 힘이 됩니다! 안녕하세요 자도르입니다. 오늘은 크리스마스 케이크로 ..."
+      },
+      {
+        "url": "https://www.youtube.com/watch?v=lchcnJxvZfY",
+        "thumbnail": "https://i.ytimg.com/vi/lchcnJxvZfY/hqdefault.jpg",
+        "title": "진짜 맛있는 딸기 생크림 케이크 레시피│자도르",
+        "content": "만드는 방법 더 자세히 보기 '좋아요'와 '구독'은 컨텐츠 제작에 큰 힘이 됩니다! 안녕하세요. 자도르입니다- 이 레시피는 평소에 제가 ..."
+      },
+      {
+        "url": "https://www.youtube.com/watch?v=BKXf-JVZE3w",
+        "thumbnail": "https://i.ytimg.com/vi/BKXf-JVZE3w/hqdefault.jpg",
+        "title": "딸기 생크림 케이크 만들기 l strawberry cream cake recipe l 서담(SEODAM)",
+        "content": "부드럽고 달콤한 딸기 생크림 케이크 만들기 *재밌게 보시고 구독과 좋아요 버튼을 눌러주세요 :)* *재료*(1호팬 15cm) 버터 10g, 우유 ..."
+      },
+      {
+        "url": "https://www.youtube.com/watch?v=iQiNTspeM4g",
+        "thumbnail": "https://i.ytimg.com/vi/iQiNTspeM4g/hqdefault.jpg",
+        "title": "[Eng]한가지재료를 더해서 호텔케이크처럼 우유맛 찐한 딸기생크림케이크만들기(유지방높은 생크림맛)무료아이싱강의,케익예쁘게자르는법,strawberry cake/로미꽃빵romitube",
+        "content": "영상은 1080p (HD)에서 시청해주세요 ☺ #홈베이킹 #homebaking #로미꽃빵 안녕하세요, 로미꽃빵입니다 . 2020년을 시작하는 첫 ..."
+      },
+      {
+        "url": "https://www.youtube.com/watch?v=kdRb5F8Wx_U",
+        "thumbnail": "https://i.ytimg.com/vi/kdRb5F8Wx_U/hqdefault.jpg",
+        "title": "달지 않은데도 엄청맛있어 딸기 생크림 케이크 만들기/한입 넣으면 행복감이 입안가득/케잌 초보도 쉽게 만들수 있는 친절레시피 Easy strawberry cake",
+        "content": "바로 지난번 아주 퐁신퐁신한 제누와즈 만들기 영상을 올려 드렸고요 이번에는 이 제누와즈를 활용해서 엄청 맛있는 딸기 생크림 케잌 ..."
+      }
+    ]
   }
 }
