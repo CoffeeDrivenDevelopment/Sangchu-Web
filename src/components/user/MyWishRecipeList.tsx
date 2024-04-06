@@ -7,25 +7,24 @@ import api from '../../api/api';
 import { useEffect, useState, useRef } from 'react';
 import no_image from '../../assets/images/no_image.png';
 
-interface Recipe {
-  recipe_id: number;
-  recipe_title: string;
-  recipe_image: string;
-  // 태그
-  food_category: string;
-  cooking_difficulty: string;
-  cooking_time: string;
-}
-
 interface RecipeResponse {
   message: string;
   body: {
-    recipes: {
-      totalPages: number;
-      content: Recipe[];
-    };
+    recipes: Recipe[];
+    total_count: number;
+    last: number;
+    has_more: boolean;
   };
 }
+
+interface Recipe {
+  id: number;
+  image: string;
+  name: string;
+  is_liked: boolean;
+  tags: string[];
+}
+
 
 function MyWishRecipeList() {
   const navigate = useNavigate();
@@ -40,29 +39,29 @@ function MyWishRecipeList() {
       try {
         setIsLoading(true);
         const member_id = localStorage.getItem('member_id');
-        const response = await api.get<RecipeResponse>(
-          `/recipe-service/v1/likes/${member_id}?page=${currentPage}&size=10&sort=asc`,
-        );
-        setTotalPages(response.data.body.recipes.totalPages);
-        setRecipeListData((prevRecipes) => [...prevRecipes, ...response.data.body.recipes.content]);
-        console.log('찜한 레시피 조회 성공', response.data.body.recipes);
+        const response = await api.get<RecipeResponse>(`/recipe-service/v1/likes/${member_id}?page=${currentPage}`);
+        const { recipes, total_count } = response.data.body;
+        setTotalPages(Math.ceil(total_count / 4)); // 4는 페이지당 레시피 개수
+        setRecipeListData((prevRecipes) => [...prevRecipes, ...recipes]);
+        console.log('좋아요한 레시피 조회 성공', recipes);
+        console.log('current page number', currentPage);
       } catch (error) {
-        console.log('찜한 레시피 요청 실패', error);
+        console.log('좋아요한 레시피 요청 실패', error);
         console.log('현재 페이지', currentPage);
       } finally {
         setIsLoading(false);
       }
     };
-
+    
     getMyRecipeList();
   }, [currentPage]);
 
   const moveToDetail = (recipe: Recipe) => {
-    navigate(`/recipe/${recipe.recipe_id}`, {
+    navigate(`/recipe/${recipe.id}`, {
       state: {
-        id: recipe.recipe_id,
-        img: recipe.recipe_image || no_image,
-        name: recipe.recipe_title,
+        id: recipe.id,
+        img: recipe.image || no_image,
+        name: recipe.name,
       },
     });
   };
@@ -92,37 +91,38 @@ function MyWishRecipeList() {
       const response = await api.delete(`/recipe-service/v1/recipes/${id}/likes`);
       console.log('레시피 좋아요 취소', response.data);
       // 요청 성공 시 목록에서 제거
-      setRecipeListData((prevRecipes) => prevRecipes.filter((recipe) => recipe.recipe_id !== id));
+      setRecipeListData((prevRecipes) => prevRecipes.filter((recipe) => recipe.id !== id));
     } catch (error) {
       console.log(error);
       console.log('id', id);
+      setRecipeListData((prevRecipes) => prevRecipes.filter((recipe) => recipe.id !== id)); // 일단 요청 실패해도 삭제
     }
   };
 
   return (
     <FlexColBox ref={containerRef} $margin="1rem" $gap="1rem">
       {recipeListData.map((recipe) => (
-        <RecipeCard key={recipe.recipe_id} onClick={() => moveToDetail(recipe)}>
+        <RecipeCard key={recipe.id} onClick={() => moveToDetail(recipe)}>
           <ImgBox>
-            <img src={recipe.recipe_image || no_image} alt="레시피 이미지" style={{ width: '100%' }} />
+            <img src={recipe.image || no_image} alt="레시피 이미지" style={{ width: '100%', height: '100%', borderRadius: '10px' }} />
           </ImgBox>
           <ContentsBox>
             <HeaderBox>
-              <h2>{recipe.recipe_title}</h2>
+              <h2>{recipe.name}</h2>
               <UnlikeButton
                 onClick={(event) => {
                   event.stopPropagation();
-                  unLike(recipe.recipe_id);
+                  unLike(recipe.id);
                 }}
               >
-                <img src={unlikeImg} alt="연한 숟가락" />
+                <img src={unlikeImg} alt="연한 숟가락" width={'25vw'} />
               </UnlikeButton>
             </HeaderBox>
 
             <TagBox>
-              <TagBtn>{`#${recipe.food_category}`}</TagBtn>
-              <TagBtn>{`#${recipe.cooking_difficulty}`}</TagBtn>
-              <TagBtn>{`#${recipe.cooking_time}`}</TagBtn>
+              <TagBtn>{`#${recipe.tags[0]}`}</TagBtn>
+              <TagBtn>{`#${recipe.tags[1]}`}</TagBtn>
+              <TagBtn>{`#${recipe.tags[2]}`}</TagBtn>
             </TagBox>
           </ContentsBox>
         </RecipeCard>
@@ -147,6 +147,7 @@ const RecipeCard = styled.div`
 
 const ImgBox = styled.div`
   width: 110px;
+  height: 110px;
   margin-left: 0.5rem;
 `;
 
@@ -186,5 +187,5 @@ const UnlikeButton = styled.button`
   background: none;
   border: none;
   cursor: pointer;
-  width: 30px;
+  margin-left: 0.5rem;
 `;
