@@ -67,7 +67,7 @@ function ShowGraph({ text, marketdata, filterState }: ShowGraphProps) {
   }
 
   const chartData = {
-    labels: dateList.reverse(),
+    labels: dateList,
     datasets: datasets,
   };
 
