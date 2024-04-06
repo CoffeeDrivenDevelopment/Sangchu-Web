@@ -1,11 +1,11 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import getReviewList from '../../services/review/getReviewList';
 import IconBox from '../common/IconBox';
-import { main, LightGray } from '../../assets/styles/palettes';
+// import { main, LightGray } from '../../assets/styles/palettes';
 import heart from '../../assets/images/heart_on.png';
-import MainButton from '../common/MainButton';
+// import MainButton from '../common/MainButton';
 import writeImg from '../../assets/images/reviewWrite.png';
 import arrowImg from '../../assets/images/right_arrow.png';
 import * as S from './ReviewList.styled';
@@ -19,16 +19,16 @@ type ParameterProps = {
 
 function ReviewList(props: ParameterProps) {
   const { recipeName, recipeId } = props;
-  const [sort, setSort] = useState<number>(0);
+  // const [sort, setSort] = useState<number>(0);
   const navigate = useNavigate();
 
-  const latestOrder = () => {
-    setSort(0);
-  };
+  // const latestOrder = () => {
+  //   setSort(0);
+  // };
 
-  const popularOrder = () => {
-    setSort(1);
-  };
+  // const popularOrder = () => {
+  //   setSort(1);
+  // };
 
   const moveToWrite = () => {
     navigate('review/write', {
@@ -67,7 +67,7 @@ function ReviewList(props: ParameterProps) {
   return (
     <div>
       <S.SubHeader>
-        {sort === 0 ? (
+        {/* sort === 0 ? (
           <S.FilterArea>
             <div onClick={() => latestOrder()}>
               <MainButton text="최신순" backgroundColor={main} />
@@ -85,7 +85,7 @@ function ReviewList(props: ParameterProps) {
               <MainButton text="인기순" backgroundColor={main} />
             </div>
           </S.FilterArea>
-        )}
+        ) */}
         <S.ReviewWriteBtn onClick={() => moveToWrite()}>
           <img src={writeImg} alt="리뷰 작성" style={{ width: '23px' }} />
           <span>리뷰 작성</span>

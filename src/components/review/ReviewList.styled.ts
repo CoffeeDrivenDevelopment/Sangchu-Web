@@ -62,4 +62,5 @@ export const ReviewWriteBtn = styled.div`
   font-family: 'NanumSquareRoundEB';
   gap: 0.2rem;
   font-size: 14px;
+  margin-left: auto; // 정렬 버튼이 다시 생기면 삭제해줘야 함
 `;
