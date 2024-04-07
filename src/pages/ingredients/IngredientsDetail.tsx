@@ -163,7 +163,7 @@ function IngredientsDetail() {
           </div>
         ) : null}
 
-        {data.length !== 0 ? (
+        {data.length !== 0 && data.every((item) => item.price !== 0)? (
           <FlexRowBox $alignItems="center" $justifyContent="center" $gap="0.1rem" $margin="0.9rem 0">
             <h6>현재 최저가</h6>
             {today.percent !== 0 ? (
