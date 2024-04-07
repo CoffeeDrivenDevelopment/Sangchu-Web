@@ -11,14 +11,16 @@ import { FlexRowBox } from '../common/FlexRowBox';
 import LoadingSpinner from '../common/LoadingSpinner';
 import MainButton from '../common/MainButton';
 import Swal from 'sweetalert2';
+import commentFormatDate from '../../hooks/commentFormatDate';
 
 type RecipeCommentListProps = {
   recipeId: number;
   parent_commentId: number;
+  onCommentAdded: () => void;
 };
 
 // 대댓글 목록 조회 및 작성
-function RecipeReplyComments({ recipeId, parent_commentId }: RecipeCommentListProps) {
+function RecipeReplyComments({ recipeId, parent_commentId, onCommentAdded }: RecipeCommentListProps) {
   const queryClient = useQueryClient();
   const [last, setLast] = useState(1000000);
   const {
@@ -43,6 +45,8 @@ function RecipeReplyComments({ recipeId, parent_commentId }: RecipeCommentListPr
     });
     setContent('');
     refetch();
+
+    onCommentAdded();
   };
 
   const handleLoadMore = () => {
@@ -82,7 +86,7 @@ function RecipeReplyComments({ recipeId, parent_commentId }: RecipeCommentListPr
             <div style={{ padding: '10px', wordBreak: 'keep-all' }}>{comment.content}</div>
 
             <FlexRowBox $position="absolute" $alignItems="center" $right="10px" $gap="5px">
-              <SubText>{comment.last_updated_time}</SubText>
+              <SubText>{commentFormatDate(comment.last_updated_time)}</SubText>
             </FlexRowBox>
           </FlexColBox>
         </Balloon>

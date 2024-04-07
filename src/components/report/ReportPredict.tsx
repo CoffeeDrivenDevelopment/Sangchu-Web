@@ -14,7 +14,7 @@ function ReportPredict({ name }: NameProps) {
   const id = stringId ? parseInt(stringId, 10) : null;
   const { weatherList } = useWeatherStore();
   const { isLoading: predictLoading, data: predictData } = useQuery({
-    queryKey: ['get-OfflineReport', id],
+    queryKey: ['get-Predict', id],
     queryFn: () => (id !== null ? getPredictPrice(id) : Promise.reject(new Error('ID is null'))),
   });
 

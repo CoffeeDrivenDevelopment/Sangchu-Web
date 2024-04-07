@@ -69,5 +69,5 @@ export const EmptyBox = styled.div`
   display: flex;
   justify-content: center;
   font-family: 'NanumSquareRoundB';
-  padding: 2vh;
+  padding: 2vh 2vh 7vh 2vh;
 `;

@@ -17,6 +17,8 @@ import getRecommendIngredients from '../../services/recommend/getRecommendIngred
 import getRecommendRecipe from '../../services/recommend/getRecommendRecipe';
 import * as S from './Home.styled';
 import he from 'he';
+import graphFormatDate from '../../hooks/graphFormatDate';
+import updateformatDate from '../../hooks/updateFormatDate';
 
 // import notification_on from '../assets/images/notification_on.png';
 // 추후 알림 on/off 별로 아이콘 다르게 할 것
@@ -63,7 +65,11 @@ function Home() {
           }}
         >
           {ingredientsData.ingredients.map((ingredient, i) => (
-            <Ingredients key={i} ingredient={ingredient.ingredients} updateAt={ingredientsData.updateAt} />
+            <Ingredients
+              key={i}
+              ingredient={ingredient.ingredients}
+              updateAt={updateformatDate(ingredientsData.updateAt)}
+            />
           ))}
         </Carousel>
 
@@ -74,14 +80,6 @@ function Home() {
   );
 }
 export default Home;
-
-// 'M/DD' 형식으로 변환해주는 함수
-export function formatDate(dateString: string) {
-  const date = new Date(dateString);
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  return `${month}/${day}`;
-}
 
 // 추천 재료들 데이터 가져오는 함수
 function Ingredients({ ingredient, updateAt }: RecommendIngredientFuncProps) {
@@ -95,7 +93,7 @@ function Ingredients({ ingredient, updateAt }: RecommendIngredientFuncProps) {
   }
   for (let i = 0; i < ingredient.offline.length; i++) {
     offlineList.push(ingredient.offline[i].price);
-    dateList.push(formatDate(ingredient.offline[i].date));
+    dateList.push(graphFormatDate(ingredient.offline[i].date));
   }
   const navigate = useNavigate();
   const handleIngredientClick = (ingredient_id: number) => {
@@ -215,7 +213,6 @@ function Recipe({ recipe, cookingMovie }: RecommendRecipeFuncProps) {
       },
     });
   };
-
 
   return (
     <div>

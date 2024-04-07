@@ -7,6 +7,8 @@ import EmptyData from '../common/EmptyData';
 import { FlexColBox } from '../common/FlexColBox';
 import { FlexRowBox } from '../common/FlexRowBox';
 import LoadingSpinner from '../common/LoadingSpinner';
+import { useEffect, useState } from 'react';
+import getUserTargetPrice from '../../services/user/getUserTargetPrice';
 
 function ReportReasonable() {
   const { id: stringId } = useParams<{ id?: string }>();
@@ -15,6 +17,25 @@ function ReportReasonable() {
     queryKey: ['get-Reasonable', id],
     queryFn: () => (id !== null ? getReasonablePrice(id) : Promise.reject(new Error('ID is null'))),
   });
+  console.log(reasonableData);
+
+  const [myTargetPrice, setMytargetPrice] = useState<number | null | undefined>(null);
+
+  useEffect(() => {
+    const getTargetPrice = async () => {
+      try {
+        const response = await getUserTargetPrice();
+        if (response) {
+          const mytarget = response.target_price_list.find((target) => target.ingredient_id === id);
+          const mytargetPrice = mytarget?.target_price;
+          setMytargetPrice(mytargetPrice);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getTargetPrice();
+  }, []);
 
   function attachParticle(word: string) {
     const lastChar = word.charAt(word.length - 1);
@@ -33,6 +54,12 @@ function ReportReasonable() {
   if (!reasonableData) {
     return <EmptyData />;
   }
+
+  let diff = 0;
+  if (myTargetPrice) {
+    diff = reasonableData.price - myTargetPrice;
+  }
+
   return (
     <div>
       <FlexColBox
@@ -45,15 +72,23 @@ function ReportReasonable() {
         <MainImg src={reasonableData.img} />
         <div>{reasonableData.name}의 적정 소비 금액</div>
 
-        {reasonableData.diff > 0 && reasonableData.diff !== reasonableData.price ? (
+        {diff > 0 ? (
           <div>
             <PointText>{reasonableData.price}원</PointText>
-            <PointText>(목표가 대비+{reasonableData.diff.toLocaleString('ko-KR')}원)</PointText>
+            <FlexRowBox>
+              <PointText>(목표가 대비</PointText>
+              <PointText style={{ color: 'red' }}>+{diff.toLocaleString('ko-KR')}</PointText>
+              <PointText>원)</PointText>
+            </FlexRowBox>
           </div>
-        ) : reasonableData.diff < 0 && reasonableData.diff !== reasonableData.price ? (
+        ) : diff < 0 && diff !== reasonableData.price ? (
           <div>
             <PointText>{reasonableData.price}원</PointText>
-            <PointText>(목표가 대비{reasonableData.diff.toLocaleString('ko-KR')}원)</PointText>
+            <FlexRowBox>
+              <PointText>(목표가 대비</PointText>
+              <PointText style={{ color: 'blue' }}>{diff.toLocaleString('ko-KR')}</PointText>
+              <PointText>원)</PointText>
+            </FlexRowBox>
           </div>
         ) : (
           <div>
