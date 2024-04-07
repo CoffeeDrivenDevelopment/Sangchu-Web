@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import DaumPostcodeEmbed from 'react-daum-postcode';
-import useAddressStore from '../../stores/useAddressStore';
 import MainButton from '../../components/common/MainButton';
 import { main } from '../../assets/styles/palettes';
 import styled from '@emotion/styled';
@@ -12,7 +11,6 @@ import postUserAddress from '../../services/user/patchUserAddress.ts';
 function RegisterAddress() {
   const [isShowPostCode, setIsShowPostCode] = useState<boolean>(false);
   const [myAddress, setMyAddress] = useState<string>('');
-  const { address, setAddress } = useAddressStore();
   const navigate = useNavigate();
 
   const handleComplete = (data: DaumPostcodeData) => {
@@ -65,10 +63,10 @@ function RegisterAddress() {
   const useGeocode = async () => {
     try {
       const { lat, lng, addressName } = await handleGeocode();
+      console.log(addressName)
       if (lat && lng) {
         const latNum = parseFloat(lat);
         const lngNum = parseFloat(lng);
-        setAddress(latNum, lngNum, addressName);
         await postUserAddress(latNum, lngNum);
         alert('주소 설정 완료!');
         navigate('/');
@@ -89,7 +87,7 @@ function RegisterAddress() {
         <DaumPostcodeEmbed onComplete={handleComplete} autoClose={false} style={{ height: '60vh', marginTop: '2vh' }} />
       ) : null}
 
-      {!address && myAddress ? (
+      {myAddress ? (
         <FlexColBox $padding="3vh" $gap="3vh">
           <SubText>선택한 주소: {myAddress}</SubText>
           <MainButton text="저장" backgroundColor={main} onClick={useGeocode} />

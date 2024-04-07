@@ -7,13 +7,13 @@ import { Gray, LightGray, main } from '../../assets/styles/palettes';
 import { formatDate } from '../../pages/Home/Home';
 import getOfflineGraph from '../../services/report/getOfflineGraph';
 import getOnlineGraph from '../../services/report/getOnlineGraph';
-import useAddressStore from '../../stores/useAddressStore';
 import EmptyData from '../common/EmptyData';
 import FilterButton from '../common/FilterButton';
 import { FlexRowBox } from '../common/FlexRowBox';
 import LoadingSpinner from '../common/LoadingSpinner';
 import MainButton from '../common/MainButton';
 import ScrollTopButton from '../common/ScrollTopButton';
+import patchUserAddress from '../../services/user/patchUserAddress';
 
 type ShowGraphProps = {
   text: string;
@@ -133,17 +133,40 @@ function ShowGraph({ text, marketdata, filterState }: ShowGraphProps) {
 }
 
 function ReportGraphs() {
-  const { address } = useAddressStore();
+
+  useEffect(() => {
+    const getAddress = async () => {
+      try {
+        const response = await patchUserAddress();
+        if (response) {
+          const lat = response.lat;
+          const lng = response.lng;
+          setMyAddress({ lat, lng });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getAddress();
+  }, []);
+
+
+  // 주소 저장
+  const [myAddress, setMyAddress] = useState<MyAddressProps>({
+    lat: 0,
+    lng: 0,
+  });
+  
   const { id: stringId } = useParams<{ id?: string }>();
   const id = stringId ? parseInt(stringId, 10) : null;
   const [offlineFilterState, setOfflineFilterState] = useState<number>(1);
   const [onlineFilterState, setOnlineFilterState] = useState<number>(1);
 
   const { isLoading: offlineReportLoading, data: offlineReportData } = useQuery({
-    queryKey: ['get-OfflineReport', id, address],
+    queryKey: ['get-OfflineReport', id, myAddress],
     queryFn: () =>
-      id !== null && address !== null
-        ? getOfflineGraph(id, address.lat, address.lng)
+      id !== null && myAddress !== null
+        ? getOfflineGraph(id, myAddress.lat, myAddress.lng)
         : Promise.reject(new Error('ID is null')),
     // keepPreviousData: true,
   });

@@ -108,3 +108,22 @@ type MarketContentsProps = {
 type NameProps = {
   name: string;
 };
+
+type TargetPrice  = {
+  ingredient_id: number;
+  ingredient_name: string;
+  target_price: number;
+  online_price: number[];
+  offline_price: number[];
+  current_online_price: number;
+  current_offline_price: number;
+}
+
+type TargetApiResponse = {
+  message: string;
+  body: TargetList;
+}
+
+type TargetList = {
+  target_price_list: TargetPrice[];
+};

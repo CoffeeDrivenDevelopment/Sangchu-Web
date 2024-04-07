@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { startTransition } from 'react';
+import { startTransition, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import low_price from '../../../assets/images/low_price.png';
 import map_icon from '../../../assets/images/map.png';
@@ -7,21 +7,42 @@ import market_icon from '../../../assets/images/market.png';
 import online_market from '../../../assets/images/online_market.png';
 import getOfflineList from '../../../services/ingredient/getOfflineList';
 import getOnlineList from '../../../services/ingredient/getOnlineList';
-import useAddressStore from '../../../stores/useAddressStore';
 import EmptyData from '../../common/EmptyData';
 import { FlexColBox } from '../../common/FlexColBox';
 import { FlexRowBox } from '../../common/FlexRowBox';
 import LoadingSpinner from '../../common/LoadingSpinner';
 import * as S from './MarketList.styled';
+import patchUserAddress from '../../../services/user/patchUserAddress';
 
 function MarketList({ id }: { id: number }) {
+  useEffect(() => {
+    const getAddress = async () => {
+      try {
+        const response = await patchUserAddress();
+        if (response) {
+          const lat = response.lat;
+          const lng = response.lng;
+          setMyAddress({ lat, lng });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getAddress();
+  }, []);
+
+  // 주소 저장
+  const [myAddress, setMyAddress] = useState<MyAddressProps>({
+    lat: 0,
+    lng: 0,
+  });
+
   const navigate = useNavigate();
-  const { address } = useAddressStore();
   const { isLoading: offlineMarketLoading, data: offlineMarketData } = useQuery({
     queryKey: ['get-OfflineMarket', id],
     queryFn: () =>
-      id !== null && address !== null && address.lat !== null && address.lng !== null
-        ? getOfflineList(id, address.lat, address.lng)
+      id !== null && myAddress !== null && myAddress.lat !== null && myAddress.lng !== null
+        ? getOfflineList(id, myAddress.lat, myAddress.lng)
         : Promise.reject(new Error('ID is null')),
   });
 
@@ -42,7 +63,7 @@ function MarketList({ id }: { id: number }) {
     });
   };
 
-  console.log(offlineMarketData);
+  console.log(onlineMarketData);
   if (onlineMarketLoading || offlineMarketLoading) {
     return <LoadingSpinner />;
   }
@@ -92,7 +113,7 @@ function MarketList({ id }: { id: number }) {
 
   // 온라인 쇼핑몰들 불러오는 함수
   const renderOnlineMarkets = () => {
-    if (onlineMarketData) {
+    if (onlineMarketData && onlineMarketData.markets.length > 0) {
       const marketList = onlineMarketData.markets.map((market, i) => (
         <div key={i}>
           <Link to={market.market_link}>
@@ -118,7 +139,7 @@ function MarketList({ id }: { id: number }) {
   };
 
   return (
-    <div style={{ padding: '20px', position: 'relative' }}>
+    <div style={{ padding: '0 20px 20px 20px ', position: 'relative' }}>
       <FlexColBox $margin="3vh 0 3vh 0">
         <FlexRowBox $alignItems="center" $gap="3px">
           <img src={low_price} style={{ width: '35px', height: '35px' }} />
@@ -128,7 +149,7 @@ function MarketList({ id }: { id: number }) {
 
       {renderOnlineMarkets()}
 
-      <FlexColBox $margin="0 0 20px 0">
+      <FlexColBox $margin="3vh 0 2vh 0">
         <FlexRowBox $alignItems="center" $gap="3px">
           <img src={low_price} style={{ width: '35px', height: '35px' }} />
           <h6>오프라인 최저가</h6>
