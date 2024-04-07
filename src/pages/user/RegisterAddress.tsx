@@ -7,6 +7,7 @@ import { FlexColBox } from '../../components/common/FlexColBox';
 import * as S from './Register.ts';
 import { useNavigate } from 'react-router-dom';
 import postUserAddress from '../../services/user/patchUserAddress.ts';
+import Swal from 'sweetalert2';
 
 function RegisterAddress() {
   const [isShowPostCode, setIsShowPostCode] = useState<boolean>(false);
@@ -47,7 +48,13 @@ function RegisterAddress() {
 
           const result = response.v2;
           if (result.addresses[0] === undefined) {
-            alert('유효한 주소를 입력해주세요!');
+            Swal.fire({
+              icon: 'error',
+              text: '유효한 주소를 입력해주세요.',
+              showConfirmButton: false,
+              showCancelButton: true,
+              cancelButtonText: '닫기',
+            });
             setMyAddress('');
             return reject('잘못된 주소 입력');
           }
@@ -68,7 +75,13 @@ function RegisterAddress() {
         const latNum = parseFloat(lat);
         const lngNum = parseFloat(lng);
         await postUserAddress(latNum, lngNum);
-        alert('주소 설정 완료!');
+        Swal.fire({
+          icon: 'success',
+          text: '위치 등록 완료!',
+          showConfirmButton: false,
+          showCancelButton: true,
+          cancelButtonText: '닫기',
+        });
         navigate('/');
       }
     } catch (error) {

@@ -10,6 +10,7 @@ import { FlexColBox } from '../common/FlexColBox';
 import { FlexRowBox } from '../common/FlexRowBox';
 import LoadingSpinner from '../common/LoadingSpinner';
 import MainButton from '../common/MainButton';
+import Swal from 'sweetalert2';
 
 type RecipeCommentListProps = {
   recipeId: number;
@@ -33,7 +34,13 @@ function RecipeReplyComments({ recipeId, parent_commentId }: RecipeCommentListPr
   const handlePostComment = async (e: React.FormEvent) => {
     e.preventDefault();
     await postRecipeComment(recipeId, content, parent_commentId);
-    alert('대댓글 작성 완료!');
+    Swal.fire({
+      icon: 'success',
+      text: '대댓글 작성 완료!',
+      showConfirmButton: false,
+      showCancelButton: true,
+      cancelButtonText: '닫기',
+    });
     setContent('');
     refetch();
   };
