@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
-import { forwardRef, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 // import WheelPicker from 'react-simple-wheel-picker';
 import { main } from '../../assets/styles/palettes';
@@ -17,9 +17,9 @@ import FormControl from '@mui/joy/FormControl';
 import Input from '@mui/joy/Input';
 // import { SelectChangeEvent } from '@mui/material/Select';
 import { NumericFormat, NumericFormatProps } from 'react-number-format';
-import useTargetPriceStore from '../../stores/useTargetPriceStore';
 import { FlexRowBox } from '../common/FlexRowBox';
 import Swal from 'sweetalert2';
+import getUserTargetPrice from '../../services/user/getUserTargetPrice';
 
 const NumericFormatAdapter = forwardRef<NumericFormatProps, CustomProps>(function NumericFormatAdapter(props, ref) {
   const { onChange, ...other } = props;
@@ -63,11 +63,28 @@ function ReportTargetPrice() {
     queryFn: () => (id !== null ? getTargetPrice(id) : Promise.reject(new Error('ID is null'))),
   });
 
-  const { targets, addTarget } = useTargetPriceStore();
-  const target = targets.find((target) => target.id === id);
-  const targetPrice = target?.targetPrice;
+  const [myTargetPrice, setMytargetPrice] = useState<number | null | undefined>(null);
 
-  const [myPrice, setMyprice] = useState<number | undefined>(targetPrice || undefined);
+  useEffect(() => {
+    const getTargetPrice = async () => {
+      try {
+        const response = await getUserTargetPrice();
+        if (response) {
+          const mytarget = response.target_price_list.find((target) => target.ingredient_id === id);
+          const mytargetPrice = mytarget?.target_price;
+          setMytargetPrice(mytargetPrice);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getTargetPrice();
+  }, []);
+
+  // const target = targets.find((target) => target.id === id);
+  // const targetPrice = target?.targetPrice;
+
+  // const [myPrice, setMyprice] = useState<number | undefined>(targetPrice || undefined);
   // useEffect(() => {
   //   setMyprice(targetData?.targetPrice);
   // }, []);
@@ -96,10 +113,9 @@ function ReportTargetPrice() {
   // }, [priceValue, targetData, setPriceValue]);
 
   const handleSetTarget = async () => {
-    if (id != null && myPrice != null) {
-      addTarget(id, myPrice);
-      const myTargetPrice = { id, price: myPrice };
-      await postTargetPrice(myTargetPrice);
+    if (id != null && myTargetPrice != null) {
+      const mytarg = { id, price: myTargetPrice };
+      await postTargetPrice(mytarg);
       Swal.fire({
         icon: 'success',
         text: '목표가 설정 완료!',
@@ -202,9 +218,9 @@ function ReportTargetPrice() {
       <FormControl>
         <Input
           sx={{ padding: '10px', width: '60%', margin: 'auto' }}
-          value={myPrice}
+          value={myTargetPrice || undefined}
           color="success"
-          onChange={(event) => setMyprice(Number(event.target.value))}
+          onChange={(event) => setMytargetPrice(Number(event.target.value))}
           placeholder="목표가를 입력해주세요."
           slotProps={{
             input: {

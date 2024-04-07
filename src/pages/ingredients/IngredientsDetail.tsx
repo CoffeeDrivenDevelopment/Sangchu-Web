@@ -17,10 +17,10 @@ import MarketList from '../../components/ingredients/MarketList/MarketList';
 import getIngredientDetail from '../../services/ingredient/getIngredientDetail';
 import getIngredientOfflineGraph from '../../services/ingredient/getIngredientOfflineGraph';
 import getIngredientOnlineGraph from '../../services/ingredient/getIngredientOnlineGraph';
-import useAddressStore from '../../stores/useAddressStore';
 import { formatDate } from '../Home/Home';
 import { UpdateText } from '../Home/Home.styled';
 import no_image from '../../assets/images/no_image.png';
+import patchUserAddress from '../../services/user/patchUserAddress';
 
 type TodayProps = {
   price: number;
@@ -39,7 +39,28 @@ function IngredientsDetail() {
   const ingredientId = stringId ? parseInt(stringId, 10) : null; // 문자열인 id를 십진수로 변환
   const [isModalClick, setIsModalClick] = useState<boolean>(false);
   const navigate = useNavigate();
-  const { address } = useAddressStore();
+
+  useEffect(() => {
+    const getAddress = async () => {
+      try {
+        const response = await patchUserAddress();
+        if (response) {
+          const lat = response.lat;
+          const lng = response.lng;
+          setMyAddress({ lat, lng });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getAddress();
+  }, []);
+
+  // 주소 저장
+  const [myAddress, setMyAddress] = useState<MyAddressProps>({
+    lat: 0,
+    lng: 0,
+  });
 
   const { isLoading: detailLoading, data: detailData } = useQuery({
     queryKey: ['get-ingredientDetail', ingredientId],
@@ -50,8 +71,8 @@ function IngredientsDetail() {
   const { isLoading: offlineLoading, data: offlineData } = useQuery({
     queryKey: ['get-ingredientOfflineGraph', ingredientId],
     queryFn: () =>
-      ingredientId !== null && address && address.lat !== null && address.lng !== null
-        ? getIngredientOfflineGraph(ingredientId, address.lat, address.lng)
+      ingredientId !== null && myAddress && myAddress.lat !== null && myAddress.lng !== null
+        ? getIngredientOfflineGraph(ingredientId, myAddress.lat, myAddress.lng)
         : Promise.reject(new Error('ID is null')),
   });
 
@@ -147,6 +168,7 @@ function IngredientsDetail() {
         };
       }
     });
+    console.log('이거 데이터 확인', data);
 
     return (
       <div style={{ padding: '1.25rem 1.25rem 0.8rem 1.25rem ', position: 'relative' }}>
@@ -163,16 +185,24 @@ function IngredientsDetail() {
           </div>
         ) : null}
 
-        {data.length !== 0 && data.every((item) => item.price !== 0)? (
+        {data.length !== 0 && !data.every((item) => item.price === 0) ? (
           <FlexRowBox $alignItems="center" $justifyContent="center" $gap="0.1rem" $margin="0.9rem 0">
             <h6>현재 최저가</h6>
-            {today.percent !== 0 ? (
+            {today.percent > 0 ? (
               <h4
                 style={{
-                  color: today.percent < 0 ? 'blue' : 'red',
+                  color: 'red',
                 }}
               >
-                {today.price.toLocaleString('ko-KR')}({today.percent}%)
+                {today.price.toLocaleString('ko-KR')}(+{today.percent}%)
+              </h4>
+            ) : today.percent < 0 ? (
+              <h4
+                style={{
+                  color: 'blue',
+                }}
+              >
+                {today.price.toLocaleString('ko-KR')}(-{today.percent}%)
               </h4>
             ) : (
               <h4
@@ -201,8 +231,8 @@ function IngredientsDetail() {
         {isModalClick && <HelpModal knowHow={detailData['know-how']} onClose={closeModal} />}
       </div>
       <div>
-        <ShowGraph text="오프라인" data={offlineData.data} today={offlineData.today} updateAt={onlineData.updateAt} />
         <ShowGraph text="온라인" data={onlineData.data} today={onlineData.today} updateAt={onlineData.updateAt} />
+        <ShowGraph text="오프라인" data={offlineData.data} today={offlineData.today} updateAt={onlineData.updateAt} />
       </div>
       {ingredientId ? (
         <div>
@@ -229,7 +259,6 @@ const ReportBox = styled(FlexRowBox)`
   width: fit-content;
   padding: 1.5vh;
   border-radius: 10px;
-  margin-bottom: 1vh;
 `;
 
 const ReportText = styled.div`

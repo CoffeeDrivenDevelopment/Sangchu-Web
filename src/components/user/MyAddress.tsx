@@ -1,8 +1,7 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DaumPostcodeEmbed from 'react-daum-postcode';
 import { main } from '../../assets/styles/palettes.ts';
-import useAddressStore from '../../stores/useAddressStore.ts';
 import { FlexColBox } from '../common/FlexColBox.ts';
 import Header from '../common/Header.tsx';
 import MainButton from '../common/MainButton.tsx';
@@ -12,8 +11,35 @@ import Swal from 'sweetalert2';
 
 function MyAddress() {
   const [isShowPostCode, setIsShowPostCode] = useState<boolean>(false);
-  const [myAddress, setMyAddress] = useState<string>('');
-  const { address, setAddress } = useAddressStore();
+  const [isUpdated, setIsUpdated] = useState<boolean | null>(false);
+
+  // 인풋의 주소명
+  const [addressName, setAddressName] = useState<string>('');
+
+  // // 사용자가 설정한 주소명
+  // const [myAddressName, setMyAddressName] = useState<string | null>('');
+
+  // 주소 저장
+  const [myAddress, setMyAddress] = useState<MyAddressProps>({
+    lat: 0,
+    lng: 0,
+  });
+
+  useEffect(() => {
+    const getAddress = async () => {
+      try {
+        const response = await patchUserAddress();
+        if (response) {
+          const lat = response.lat;
+          const lng = response.lng;
+          setMyAddress({ lat, lng });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getAddress();
+  }, [isUpdated]);
 
   const handleComplete = (data: DaumPostcodeData) => {
     let fullAddress = data.address;
@@ -28,7 +54,7 @@ function MyAddress() {
       }
       fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
     }
-    setMyAddress(fullAddress);
+    setAddressName(fullAddress);
     setIsShowPostCode(false);
   };
 
@@ -40,7 +66,7 @@ function MyAddress() {
     return new Promise((resolve, reject) => {
       naver.maps.Service.geocode(
         {
-          query: myAddress,
+          query: addressName,
         },
         function (status, response) {
           if (status !== naver.maps.Service.Status.OK) {
@@ -50,7 +76,7 @@ function MyAddress() {
           const result = response.v2;
           if (result.addresses[0] === undefined) {
             alert('유효한 주소를 입력해주세요!');
-            setMyAddress('');
+            setAddressName('');
             return reject('잘못된 주소 입력');
           }
           const lat = result.addresses[0].y;
@@ -69,7 +95,7 @@ function MyAddress() {
         const latNum = parseFloat(lat);
         const lngNum = parseFloat(lng);
         await patchUserAddress(latNum, lngNum);
-        setAddress(latNum, lngNum, addressName);
+        setIsUpdated(!isUpdated);
         Swal.fire({
           icon: 'success',
           text: '주소 변경 완료!',
@@ -77,7 +103,8 @@ function MyAddress() {
           showCancelButton: true,
           cancelButtonText: '닫기',
         });
-        setMyAddress('');
+        console.log(addressName);
+        setAddressName('');
       }
     } catch (error) {
       console.error(error);
@@ -91,23 +118,23 @@ function MyAddress() {
       {isShowPostCode ? (
         <DaumPostcodeEmbed onComplete={handleComplete} autoClose={false} style={{ height: '60vh', marginTop: '2vh' }} />
       ) : null}
-      {!address && myAddress ? (
+      {!myAddress && addressName ? (
         <FlexColBox $padding="3vh" $gap="3vh">
-          <SubText>선택한 주소: {myAddress}</SubText>
+          <SubText>선택한 주소: {addressName}</SubText>
           <MainButton text="저장" backgroundColor={main} onClick={useGeocode} />
         </FlexColBox>
       ) : null}
-      {address ? (
+      {myAddress ? (
         <FlexColBox $padding="5vh 5vh 2vh 5vh">
-          <FlexColBox $gap="1vh">
+          {/* <FlexColBox $gap="1vh">
             <h6 style={{ color: main }}>현재 주소</h6>
             <SubText>{address.addressName}</SubText>
-          </FlexColBox>
-          {myAddress ? (
+          </FlexColBox> */}
+          {addressName ? (
             <div>
               <FlexColBox $gap="1vh" $margin="2vh 0">
                 <h6 style={{ color: main }}>바꿀 주소</h6>
-                <SubText> {myAddress}</SubText>
+                <SubText> {addressName}</SubText>
               </FlexColBox>
               <div style={{ textAlign: 'center' }}>
                 <MainButton text="저장" backgroundColor={main} onClick={useGeocode} />
@@ -116,7 +143,8 @@ function MyAddress() {
           ) : null}
         </FlexColBox>
       ) : null}
-      {address && address.lat && address?.lng ? <MyMap lat={address.lat} lng={address.lng} /> : null}
+
+      {myAddress && myAddress.lat && myAddress?.lng ? <MyMap lat={myAddress.lat} lng={myAddress.lng} /> : null}
     </FlexColBox>
   );
 }

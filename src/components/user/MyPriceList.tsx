@@ -4,23 +4,6 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../../api/api';
 
-interface TargetPrice {
-  ingredient_id: number;
-  ingredient_name: string;
-  target_price: number;
-  online_price: number[];
-  offline_price: number[];
-  current_online_price: number;
-  current_offline_price: number;
-}
-
-interface ApiResponse {
-  message: string;
-  body: {
-    target_price_list: TargetPrice[];
-  };
-}
-
 function MyPriceList() {
   const chartRefs = useRef<(HTMLCanvasElement | null)[]>([]);
   const [priceData, setPriceData] = useState<TargetPrice[]>([]);
@@ -29,7 +12,7 @@ function MyPriceList() {
     const fetchData = async () => {
       try {
         const response = await api.get('/recipe-service/v1/targetprice');
-        const responseData: ApiResponse = response.data;
+        const responseData: TargetApiResponse = response.data;
         setPriceData(responseData.body.target_price_list);
         console.log('목표가 조회 성공', responseData);
       } catch (error) {
