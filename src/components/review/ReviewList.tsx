@@ -54,7 +54,7 @@ function ReviewList(props: ParameterProps) {
       getReviewList({
         recipe_id: recipeId,
         last: Math.pow(2, 31) - 1,
-        size: 10,
+        size: 20,
       }),
   });
 
