@@ -16,6 +16,8 @@ import LogoWithText from '../../components/common/LogoWithText';
 import getRecommendIngredients from '../../services/recommend/getRecommendIngredients';
 import getRecommendRecipe from '../../services/recommend/getRecommendRecipe';
 import * as S from './Home.styled';
+import he from 'he';
+
 // import notification_on from '../assets/images/notification_on.png';
 // 추후 알림 on/off 별로 아이콘 다르게 할 것
 
@@ -213,9 +215,7 @@ function Recipe({ recipe, cookingMovie }: RecommendRecipeFuncProps) {
       },
     });
   };
-  const replaceQuot = (str: string) => {
-    return str.replace(/&quot;/g, '"');
-  };
+
 
   return (
     <div>
@@ -272,8 +272,8 @@ function Recipe({ recipe, cookingMovie }: RecommendRecipeFuncProps) {
                 }}
               ></Paper>
               <S.MovieSubBox>
-                <S.MovieTitleText>{replaceQuot(cookingMovie.title)}</S.MovieTitleText>
-                <S.ContentText style={{ textAlign: 'left' }}>{cookingMovie.content}</S.ContentText>
+                <S.MovieTitleText>{he.decode(cookingMovie.title)}</S.MovieTitleText>
+                <S.ContentText style={{ textAlign: 'left' }}>{he.decode(cookingMovie.content)}</S.ContentText>
               </S.MovieSubBox>
             </FlexRowBox>
           </Link>
