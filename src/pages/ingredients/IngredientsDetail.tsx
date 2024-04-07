@@ -153,17 +153,17 @@ function IngredientsDetail() {
         <UpdateText style={{ top: '1rem', right: '0.6rem' }}>{updateAt} 기준</UpdateText>
         <h6 style={{ marginBottom: '0.625rem' }}>{text} 가격추이</h6>
 
-        {data.length !== 0 && data[0].price === 0 ? (
+        {data.length !== 0 && data.every((item) => item.price === 0) ? (
           <EmptyData />
-        ) : data.length !== 0 && data[0].price !== 0 ? (
+        ) : data.length !== 0 ? (
           <canvas ref={chartRef} style={{ width: '90vw', height: '15vh' }}></canvas>
-        ) : data.length !== 0 && data[0].price !== 0 && text === '오프라인' ? (
+        ) : data.length !== 0 && text === '오프라인' ? (
           <div style={{ fontFamily: 'NanumSquareRoundB', fontSize: '12px' }}>
             설정한 위치의 3km이내에서 판매하지 않는 재료예요.
           </div>
         ) : null}
 
-        {data.length !== 0 && data[0].price !== 0 ? (
+        {data.length !== 0 && data.every((item) => item.price === 0) ? (
           <FlexRowBox $alignItems="center" $justifyContent="center" $gap="0.1rem" $margin="0.9rem 0">
             <h6>현재 최저가</h6>
             {today.percent !== 0 ? (
