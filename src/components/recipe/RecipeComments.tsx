@@ -17,6 +17,7 @@ import { FlexColBox } from '../common/FlexColBox';
 import { FlexRowBox } from '../common/FlexRowBox';
 import LoadingSpinner from '../common/LoadingSpinner';
 import RecipeReplyComments from './RecipeReplyComments';
+import Swal from 'sweetalert2';
 
 type RecipeCommentListProps = {
   recipeId: number;
@@ -110,7 +111,13 @@ function RecipeComments({ recipeId }: RecipeCommentListProps) {
   const handlePostComment = async (e: React.FormEvent) => {
     e.preventDefault();
     await postRecipeComment(recipeId, content, -1);
-    alert('댓글 작성 완료!');
+    Swal.fire({
+      icon: 'success',
+      text: '댓글 작성 완료!',
+      showConfirmButton: false,
+      showCancelButton: true,
+      cancelButtonText: '닫기',
+    });
     setContent('');
     refetch();
   };
@@ -127,7 +134,6 @@ function RecipeComments({ recipeId }: RecipeCommentListProps) {
   const handlePutComment = async (comment_id: number) => {
     const content = editContents[comment_id] || '';
     await putRecipeComment(comment_id, content);
-    alert('댓글 수정 완료!');
     setIsEdit((prev) => ({
       ...prev,
       [comment_id]: !prev[comment_id],
@@ -145,9 +151,27 @@ function RecipeComments({ recipeId }: RecipeCommentListProps) {
 
   // 삭제 버튼 클릭 이벤트 핸들러
   const handleDeleteClick = async (comment_id: number) => {
-    alert('댓글 삭제 완료!');
-    await deleteRecipeComment(comment_id);
-    refetch();
+    Swal.fire({
+      text: '정말 삭제하시겠습니까?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: '삭제',
+      confirmButtonColor: '#ff4444',
+      cancelButtonText: '취소',
+      reverseButtons: true,
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          text: '삭제 완료!',
+          icon: 'success',
+          showConfirmButton: false,
+          showCancelButton: true,
+          cancelButtonText: '닫기',
+        });
+        await deleteRecipeComment(comment_id);
+        refetch();
+      }
+    });
   };
 
   // 대댓글 목록 조회하는 이벤트 함수
@@ -157,7 +181,6 @@ function RecipeComments({ recipeId }: RecipeCommentListProps) {
       [comment_id]: !prev[comment_id],
     }));
   };
-
   if (commentsLoading) {
     return <LoadingSpinner />;
   }
@@ -165,6 +188,7 @@ function RecipeComments({ recipeId }: RecipeCommentListProps) {
   if (!commentsData) {
     return <EmptyData />;
   }
+
   return (
     <ThemeProvider theme={theme}>
       <MainBox>

@@ -18,6 +18,8 @@ import Input from '@mui/joy/Input';
 // import { SelectChangeEvent } from '@mui/material/Select';
 import { NumericFormat, NumericFormatProps } from 'react-number-format';
 import useTargetPriceStore from '../../stores/useTargetPriceStore';
+import { FlexRowBox } from '../common/FlexRowBox';
+import Swal from 'sweetalert2';
 
 const NumericFormatAdapter = forwardRef<NumericFormatProps, CustomProps>(function NumericFormatAdapter(props, ref) {
   const { onChange, ...other } = props;
@@ -60,11 +62,11 @@ function ReportTargetPrice() {
     queryKey: ['get-TargetPrice', id],
     queryFn: () => (id !== null ? getTargetPrice(id) : Promise.reject(new Error('ID is null'))),
   });
-  
+
   const { targets, addTarget } = useTargetPriceStore();
-  const target = targets.find(target => target.id === id)
-  const targetPrice = target?.targetPrice
-  
+  const target = targets.find((target) => target.id === id);
+  const targetPrice = target?.targetPrice;
+
   const [myPrice, setMyprice] = useState<number | undefined>(targetPrice || undefined);
   // useEffect(() => {
   //   setMyprice(targetData?.targetPrice);
@@ -98,7 +100,13 @@ function ReportTargetPrice() {
       addTarget(id, myPrice);
       const myTargetPrice = { id, price: myPrice };
       await postTargetPrice(myTargetPrice);
-      alert('목표가 설정 완료!');
+      Swal.fire({
+        icon: 'success',
+        text: '목표가 설정 완료!',
+        showConfirmButton: false,
+        showCancelButton: true,
+        cancelButtonText: '닫기',
+      });
     }
   };
 
@@ -193,6 +201,7 @@ function ReportTargetPrice() {
     <div style={{ padding: '5vh 0' }}>
       <FormControl>
         <Input
+          sx={{ padding: '10px', width: '60%', margin: 'auto' }}
           value={myPrice}
           color="success"
           onChange={(event) => setMyprice(Number(event.target.value))}
@@ -206,7 +215,7 @@ function ReportTargetPrice() {
       </FormControl>
       {/* <input onChange={(e) => setMyprice(Number(e.target.value))} /> */}
       <ButtonBox>
-        <MainButton text="설정 완료" backgroundColor={main} padding="5px 70px" onClick={() => handleSetTarget()} />
+        <MainButton text="설정 완료" backgroundColor={main} padding="0.5vh 2vh" onClick={() => handleSetTarget()} />
       </ButtonBox>
     </div>
   );
@@ -220,9 +229,10 @@ export default ReportTargetPrice;
 //   padding-top: 20px;
 // `;
 
-const ButtonBox = styled.div`
-  padding: 10px;
+const ButtonBox = styled(FlexRowBox)`
+  padding: 2vh;
   margin-bottom: 40px;
+  justify-content: center;
 `;
 
 // const PointText = styled.div`

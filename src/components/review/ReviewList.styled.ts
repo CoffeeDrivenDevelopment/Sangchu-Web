@@ -64,3 +64,10 @@ export const ReviewWriteBtn = styled.div`
   font-size: 14px;
   margin-left: auto; // 정렬 버튼이 다시 생기면 삭제해줘야 함
 `;
+
+export const EmptyBox = styled.div`
+  display: flex;
+  justify-content: center;
+  font-family: 'NanumSquareRoundB';
+  padding: 2vh;
+`;
