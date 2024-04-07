@@ -3,12 +3,18 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import useAuthStore from '../../stores/authStore';
 import BasketLoadingSpinner from '../../components/common/LoadingSpinner';
+import useAddressStore from '../../stores/useAddressStore';
+import patchUserAddress from '../../services/user/patchUserAddress';
+import useTargetPriceStore from '../../stores/useTargetPriceStore';
+import getUserTargetPrice from '../../services/user/getUserTargetPrice';
 
 function Load() {
   const location = useLocation();
   const navigate = useNavigate();
   const userData = useAuthStore((state) => state.userData); // store 로그 확인 위해 추가한 코드
   const setUserData = useAuthStore((state) => state.setUserData);
+  const { setAddress } = useAddressStore();
+  const { addTarget } = useTargetPriceStore();
   console.log(location);
 
   useEffect(() => {
@@ -29,6 +35,18 @@ function Load() {
           localStorage.setItem('member_id', userinfo.member_id.toString());
           localStorage.setItem('nickname', userinfo.nickname);
           localStorage.setItem('profile_image', userinfo.profile_image);
+
+          // 주소 저장
+          const myaddress = await patchUserAddress();
+          if (myaddress && myaddress?.lat && myaddress?.lng) {
+            setAddress(myaddress.lat, myaddress.lng, null);
+          }
+          // 목표가 저장
+          const mypriceList = await getUserTargetPrice();
+          if (mypriceList && mypriceList.target_price_list.length > 0) {
+            mypriceList.target_price_list.map((target) => addTarget(target.ingredient_id, target.target_price));
+          }
+
           // store에 저장
           setUserData({
             access_token: userinfo.jwt.access_token,
