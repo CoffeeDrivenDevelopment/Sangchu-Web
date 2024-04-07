@@ -11,7 +11,7 @@ export const ReviewContainer = styled.div`
 
 export const ReviewBox = styled.div`
   display: grid;
-  grid-template-rows: 2fr 1fr;
+  grid-template-rows: 1.5fr 1fr;
   border-bottom: 1px solid ${Gray};
 `;
 
@@ -42,6 +42,15 @@ export const LikeArea = styled.div`
 export const ContentsArea = styled.div`
   font-family: 'NanumSquareRoundEB';
   font-size: 12px;
+  word-break: keep-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  line-height: 1.2;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 
 export const SubHeader = styled.div`
@@ -70,4 +79,16 @@ export const EmptyBox = styled.div`
   justify-content: center;
   font-family: 'NanumSquareRoundB';
   padding: 2vh 2vh 7vh 2vh;
+`;
+
+export const TitleText = styled.h6`
+  word-break: keep-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  line-height: 1.2;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;

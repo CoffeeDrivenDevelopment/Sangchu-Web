@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import IconBox from '../common/IconBox';
-import heart_on from '../../assets/images/heart_on.png';
+// import heart_on from '../../assets/images/heart_on.png';
 import api from '../../api/api';
 
 interface Review {
@@ -55,15 +55,13 @@ function MyReviewList() {
         <ReviewContainer key={review.review_id} onClick={() => moveToDetail(review.recipe_id, review.review_id)}>
           <IconBox text="" img={review.image} />
           <ReviewBox>
-            <HeaderArea>
-              <ReviewTitle>{review.title}</ReviewTitle>
-              <InfoArea>
+            <ReviewTitle>{review.title}</ReviewTitle>
+            {/* <InfoArea>
                 <LikeArea>
                   <img src={heart_on} alt="좋아요" style={{ width: '12px' }} />
                   <span>{review.likes}</span>
                 </LikeArea>
-              </InfoArea>
-            </HeaderArea>
+              </InfoArea> */}
             <ContentsArea>{review.created_at}</ContentsArea>
           </ReviewBox>
         </ReviewContainer>
@@ -86,28 +84,28 @@ const ReviewContainer = styled.div`
 
 const ReviewBox = styled.div`
   display: grid;
-  grid-template-rows: 2fr 1fr;
+  grid-template-rows: 6fr 1fr;
 `;
 
-const HeaderArea = styled.div`
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  column-gap: 1rem;
-`;
+// const HeaderArea = styled.div`
+//   display: grid;
+//   grid-template-columns: 2fr 1fr;
+//   column-gap: 1rem;
+// `;
 
-const InfoArea = styled.div`
-  display: flex;
-  flex-direction: column;
-  font-size: 12px;
-  margin-left: auto;
-  font-family: 'NanumSquareRoundB';
-`;
+// const InfoArea = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   font-size: 12px;
+//   margin-left: auto;
+//   font-family: 'NanumSquareRoundB';
+// `;
 
-const LikeArea = styled.div`
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-`;
+// const LikeArea = styled.div`
+//   margin: 0 auto;
+//   display: flex;
+//   align-items: center;
+// `;
 
 const ContentsArea = styled.div`
   font-family: 'NanumSquareRoundEB';
@@ -131,6 +129,16 @@ const Message = styled.div`
 const ReviewTitle = styled.div`
   font-family: 'NanumSquareRoundB';
   font-size: large;
-  max-width: 200px;
-  min-width: 200px;
+  padding: 1.5vh 0 0 0.5vh;
+  word-break: keep-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  line-height: 1.2;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  /* max-width: 200px;
+  min-width: 200px; */
 `;

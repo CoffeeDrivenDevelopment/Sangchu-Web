@@ -99,7 +99,7 @@ function ReviewList(props: ParameterProps) {
           <IconBox text="" img={review.image} />
           <S.ReviewBox>
             <S.HeaderArea>
-              <h6>{review.title}</h6>
+              <S.TitleText>{review.title}</S.TitleText>
               <S.InfoArea>
                 <S.Writer>by {review.member.nickname}</S.Writer>
                 {/* <S.LikeArea>
