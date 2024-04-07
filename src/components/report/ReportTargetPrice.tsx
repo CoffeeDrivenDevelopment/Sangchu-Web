@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { forwardRef, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 // import WheelPicker from 'react-simple-wheel-picker';
@@ -62,7 +62,7 @@ function ReportTargetPrice() {
     queryKey: ['get-TargetPrice', id],
     queryFn: () => (id !== null ? getTargetPrice(id) : Promise.reject(new Error('ID is null'))),
   });
-
+  const queryClient = useQueryClient();
   const [myTargetPrice, setMytargetPrice] = useState<number | null | undefined>(null);
 
   useEffect(() => {
@@ -116,6 +116,8 @@ function ReportTargetPrice() {
     if (id != null && myTargetPrice != null) {
       const mytarg = { id, price: myTargetPrice };
       await postTargetPrice(mytarg);
+      queryClient.invalidateQueries({ queryKey: ['get-OfflineReport', id] });
+      queryClient.invalidateQueries({ queryKey: ['get-OnlineReport', id] });
       Swal.fire({
         icon: 'success',
         text: '목표가 설정 완료!',
@@ -217,7 +219,7 @@ function ReportTargetPrice() {
     <div style={{ padding: '5vh 0' }}>
       <FormControl>
         <Input
-          sx={{ padding: '10px', width: '60%', margin: 'auto' }}
+          sx={{ padding: '10px', width: '70%', margin: 'auto', color: 'black' }}
           value={myTargetPrice || undefined}
           color="success"
           onChange={(event) => setMytargetPrice(Number(event.target.value))}
@@ -231,7 +233,7 @@ function ReportTargetPrice() {
       </FormControl>
       {/* <input onChange={(e) => setMyprice(Number(e.target.value))} /> */}
       <ButtonBox>
-        <MainButton text="설정 완료" backgroundColor={main} padding="0.5vh 2vh" onClick={() => handleSetTarget()} />
+        <MainButton text="설정 완료" backgroundColor={main} padding="8px 12px" onClick={() => handleSetTarget()} />
       </ButtonBox>
     </div>
   );

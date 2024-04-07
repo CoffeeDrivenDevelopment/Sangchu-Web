@@ -54,6 +54,7 @@ function MyAddress() {
       }
       fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
     }
+
     setAddressName(fullAddress);
     setIsShowPostCode(false);
   };
@@ -109,7 +110,8 @@ function MyAddress() {
           showCancelButton: true,
           cancelButtonText: '닫기',
         });
-        console.log(addressName);
+        console.log(addressName)
+        // setMyAddressName(addressName);
         setAddressName('');
       }
     } catch (error) {
@@ -150,7 +152,9 @@ function MyAddress() {
         </FlexColBox>
       ) : null}
 
-      {myAddress && myAddress.lat && myAddress?.lng ? <MyMap lat={myAddress.lat} lng={myAddress.lng} /> : null}
+      {myAddress && myAddress.lat && myAddress?.lng ? (
+        <MyMap lat={myAddress.lat} lng={myAddress.lng} />
+      ) : null}
     </FlexColBox>
   );
 }

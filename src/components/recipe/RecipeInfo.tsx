@@ -83,7 +83,7 @@ function RecipeInfo() {
             </span>
           </S.HeaderBox>
           <S.ContentsBox>
-            <span>{recipeDetailData.ingredient}</span>
+            <span style={{ lineHeight: '140%' }}>{recipeDetailData.ingredient}</span>
             {/* {recipeDetailData.ingredients.map((ingredient, idx, array) => (
               <span key={idx}>
                 {ingredient.name}

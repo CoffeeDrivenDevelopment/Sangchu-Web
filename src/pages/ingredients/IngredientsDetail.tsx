@@ -17,10 +17,11 @@ import MarketList from '../../components/ingredients/MarketList/MarketList';
 import getIngredientDetail from '../../services/ingredient/getIngredientDetail';
 import getIngredientOfflineGraph from '../../services/ingredient/getIngredientOfflineGraph';
 import getIngredientOnlineGraph from '../../services/ingredient/getIngredientOnlineGraph';
-import { formatDate } from '../Home/Home';
 import { UpdateText } from '../Home/Home.styled';
 import no_image from '../../assets/images/no_image.png';
 import patchUserAddress from '../../services/user/patchUserAddress';
+import updateFormatDate from '../../hooks/updateFormatDate';
+import graphFormatDate from '../../hooks/graphFormatDate';
 
 type TodayProps = {
   price: number;
@@ -81,7 +82,7 @@ function IngredientsDetail() {
     queryFn: () =>
       ingredientId !== null ? getIngredientOnlineGraph(ingredientId) : Promise.reject(new Error('ID is null')),
   });
-  console.log(offlineData);
+
   if (detailLoading || offlineLoading || onlineLoading) {
     return <LoadingSpinner />;
   }
@@ -103,7 +104,7 @@ function IngredientsDetail() {
 
     for (let i = 0; i < data.length; i++) {
       dataList.push(data[i].price);
-      dateList.push(formatDate(data[i].date));
+      dateList.push(graphFormatDate(data[i].date));
     }
 
     // if (offline) {
@@ -168,7 +169,6 @@ function IngredientsDetail() {
         };
       }
     });
-    console.log('이거 데이터 확인', data);
 
     return (
       <div style={{ padding: '1.25rem 1.25rem 0.8rem 1.25rem ', position: 'relative' }}>
@@ -231,8 +231,18 @@ function IngredientsDetail() {
         {isModalClick && <HelpModal knowHow={detailData['know-how']} onClose={closeModal} />}
       </div>
       <div>
-        <ShowGraph text="온라인" data={onlineData.data} today={onlineData.today} updateAt={onlineData.updateAt} />
-        <ShowGraph text="오프라인" data={offlineData.data} today={offlineData.today} updateAt={onlineData.updateAt} />
+        <ShowGraph
+          text="온라인"
+          data={onlineData.data}
+          today={onlineData.today}
+          updateAt={updateFormatDate(onlineData.updateAt)}
+        />
+        <ShowGraph
+          text="오프라인"
+          data={offlineData.data}
+          today={offlineData.today}
+          updateAt={updateFormatDate(onlineData.updateAt)}
+        />
       </div>
       {ingredientId ? (
         <div>

@@ -20,6 +20,7 @@ function ReviewDetail() {
   const location = useLocation();
   const reviewId = location.state.reviewId;
   const navigate = useNavigate();
+  const member_id = Number(localStorage.getItem('member_id'));
 
   // const handleLike = useCallback((reviewId: number) => {
   //   postReviewLike(reviewId);
@@ -133,9 +134,13 @@ function ReviewDetail() {
           </Carousel>
           <ContentText>{detailData.content}</ContentText>
         </ContentsBox>
-        <ButtonBox>
-          <MainButton text="삭제" backgroundColor={LightGray} textColor="black" onClick={handleDelete} />
-        </ButtonBox>
+
+        {member_id === detailData.member.id ? (
+          <ButtonBox>
+            <MainButton text="삭제" backgroundColor={LightGray} textColor="black" onClick={handleDelete} />
+          </ButtonBox>
+        ) : null}
+        
       </MainBox>
     </div>
   );

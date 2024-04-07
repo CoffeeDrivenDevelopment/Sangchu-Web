@@ -95,4 +95,5 @@ const ContentText = styled.div`
   font-family: 'NanumSquareRoundB';
   word-break: keep-all;
   margin-top: 40px;
+  line-height: 140%;
 `;

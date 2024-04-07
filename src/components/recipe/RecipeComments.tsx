@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { TextField, ThemeProvider } from '@mui/material';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import comment_img from '../../assets/images/comment.png';
 import no_profile from '../../assets/images/no_profile.png';
@@ -18,6 +18,7 @@ import { FlexRowBox } from '../common/FlexRowBox';
 import LoadingSpinner from '../common/LoadingSpinner';
 import RecipeReplyComments from './RecipeReplyComments';
 import Swal from 'sweetalert2';
+import commentFormatDate from '../../hooks/commentFormatDate';
 
 type RecipeCommentListProps = {
   recipeId: number;
@@ -37,7 +38,7 @@ function RecipeComments({ recipeId }: RecipeCommentListProps) {
     hasNextPage,
     isLoading: commentsLoading,
     isFetchingNextPage,
-    refetch,
+    refetch: commentRefetch,
   } = useInfiniteQuery({
     queryKey: ['get-recipe-Comments', recipeId],
     queryFn: ({ pageParam }) => getRecipeComments(recipeId, pageParam, 20),
@@ -48,6 +49,11 @@ function RecipeComments({ recipeId }: RecipeCommentListProps) {
       return pages.length + 1; // 다음 페이지 번호를 반환
     },
   });
+
+  useEffect(() => {
+    commentRefetch();
+  }, [commentRefetch]);
+
   // const handleScroll = (e: React.UIEvent<HTMLElement>) => {
   //   const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
 
@@ -119,7 +125,7 @@ function RecipeComments({ recipeId }: RecipeCommentListProps) {
       cancelButtonText: '닫기',
     });
     setContent('');
-    refetch();
+    commentRefetch();
   };
 
   // 댓글 수정 - 내용 change
@@ -138,7 +144,7 @@ function RecipeComments({ recipeId }: RecipeCommentListProps) {
       ...prev,
       [comment_id]: !prev[comment_id],
     }));
-    refetch();
+    commentRefetch();
   };
 
   // 수정 버튼 클릭 이벤트 핸들러
@@ -169,11 +175,10 @@ function RecipeComments({ recipeId }: RecipeCommentListProps) {
           cancelButtonText: '닫기',
         });
         await deleteRecipeComment(comment_id);
-        refetch();
+        commentRefetch();
       }
     });
   };
-
   // 대댓글 목록 조회하는 이벤트 함수
   const handleCommentDetail = (comment_id: number) => {
     setIsShowReply((prev) => ({
@@ -201,20 +206,26 @@ function RecipeComments({ recipeId }: RecipeCommentListProps) {
               group.comments.map((comment) => (
                 <Balloon key={comment.id}>
                   <FlexColBox $padding="10px">
-                    <FlexRowBox
-                      $alignItems="center"
-                      $gap="5px"
-                      onClick={() => navigate(`/profile/${comment.member.id}`)}
-                    >
+                    <FlexRowBox $alignItems="center" $gap="5px">
                       {comment.member.profile_image != null ? (
                         <img
                           src={comment.member.profile_image}
                           style={{ width: '30px', height: '30px', borderRadius: '10px' }}
+                          onClick={() => navigate(`/profile/${comment.member.id}`)}
                         />
                       ) : (
-                        <img src={no_profile} style={{ width: '30px', height: '30px' }} />
+                        <img
+                          src={no_profile}
+                          style={{ width: '30px', height: '30px' }}
+                          onClick={() => navigate(`/profile/${comment.member.id}`)}
+                        />
                       )}
-                      <div style={{ fontFamily: 'NanumSquareRoundEB' }}>{comment.member.nickname}</div>
+                      <div
+                        style={{ fontFamily: 'NanumSquareRoundEB' }}
+                        onClick={() => navigate(`/profile/${comment.member.id}`)}
+                      >
+                        {comment.member.nickname}
+                      </div>
                     </FlexRowBox>
 
                     {/*수정 버튼을 눌렀을 경우*/}
@@ -250,10 +261,11 @@ function RecipeComments({ recipeId }: RecipeCommentListProps) {
                     )}
 
                     <FlexRowBox $position="absolute" $alignItems="center" $right="10px" $gap="5px">
-                      <SubText>{comment.last_updated_time} |</SubText>
+                      <SubText>{commentFormatDate(comment.last_updated_time)}</SubText>
 
                       {member_id === comment.member.id ? (
                         <FlexRowBox $gap="0.5vh">
+                          <SubText>|</SubText>
                           <SubText onClick={() => handleEditClick(comment.id)}>수정</SubText>
                           <SubText>|</SubText>
                           <SubText onClick={() => handleDeleteClick(comment.id)}>삭제</SubText>
@@ -268,7 +280,13 @@ function RecipeComments({ recipeId }: RecipeCommentListProps) {
                   </FlexColBox>
 
                   {/* 대댓글 보기 */}
-                  {isShowReply[comment.id] && <RecipeReplyComments parent_commentId={comment.id} recipeId={recipeId} />}
+                  {isShowReply[comment.id] && (
+                    <RecipeReplyComments
+                      parent_commentId={comment.id}
+                      recipeId={recipeId}
+                      onCommentAdded={commentRefetch}
+                    />
+                  )}
                 </Balloon>
               ))}
           </div>

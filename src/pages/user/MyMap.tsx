@@ -14,7 +14,7 @@ function MyMap({ lat, lng }: MyMapProps) {
       const center = new navermaps.LatLng(lat, lng);
       mapRef.current.setCenter(center);
     }
-  }, [lat, lng, navermaps]); 
+  }, [lat, lng, navermaps]);
   return (
     <MapDiv
       style={{
@@ -24,7 +24,7 @@ function MyMap({ lat, lng }: MyMapProps) {
       }}
     >
       <NaverMap
-       ref={mapRef}
+        ref={mapRef}
         defaultCenter={new navermaps.LatLng(lat, lng)}
         defaultMapTypeId={navermaps.MapTypeId.NORMAL}
         defaultZoom={16}

@@ -2,18 +2,19 @@ import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { Chart } from 'chart.js';
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Gray, LightGray, main } from '../../assets/styles/palettes';
-import { formatDate } from '../../pages/Home/Home';
 import getOfflineGraph from '../../services/report/getOfflineGraph';
 import getOnlineGraph from '../../services/report/getOnlineGraph';
 import EmptyData from '../common/EmptyData';
 import FilterButton from '../common/FilterButton';
 import { FlexRowBox } from '../common/FlexRowBox';
 import LoadingSpinner from '../common/LoadingSpinner';
-import MainButton from '../common/MainButton';
 import ScrollTopButton from '../common/ScrollTopButton';
 import patchUserAddress from '../../services/user/patchUserAddress';
+import graphFormatDate from '../../hooks/graphFormatDate';
+import updateFormatDate from '../../hooks/updateFormatDate';
+import { FlexColBox } from '../common/FlexColBox';
 
 type ShowGraphProps = {
   text: string;
@@ -42,13 +43,12 @@ function ShowGraph({ text, marketdata, filterState }: ShowGraphProps) {
   if (marketdata.markets.length === 0) {
     return;
   }
-  const dateList: string[] = marketdata.markets[0][filterState].map((info) => formatDate(info.date));
+  const dateList: string[] = marketdata.markets[0][filterState].map((info) => graphFormatDate(info.date));
   const pricesArrays: number[][] = [];
   marketdata.markets.forEach((market) => {
     const prices: number[] = market[filterState].map((item) => item.price);
     pricesArrays.push(prices);
   });
-
 
   // 데이터셋 동적 생성
   const datasets = marketdata['market-type'].map((marketType, index) => ({
@@ -124,7 +124,7 @@ function ShowGraph({ text, marketdata, filterState }: ShowGraphProps) {
     <div style={{ padding: '20px', position: 'relative' }}>
       <FlexRowBox $gap="5px" $alignItems="center" $margin="0 0 25px 0">
         <TitleText>{text}</TitleText>
-        <UpdateText>{marketdata.updateAt} 기준</UpdateText>
+        <UpdateText>{updateFormatDate(marketdata.updateAt)} 기준</UpdateText>
         <h4>{marketdata['today-minimum-price'].toLocaleString('ko-KR')}원</h4>
       </FlexRowBox>
       <canvas ref={chartRef} style={{ width: '90vw', height: '25vh' }}></canvas>
@@ -133,7 +133,6 @@ function ShowGraph({ text, marketdata, filterState }: ShowGraphProps) {
 }
 
 function ReportGraphs() {
-
   useEffect(() => {
     const getAddress = async () => {
       try {
@@ -150,20 +149,19 @@ function ReportGraphs() {
     getAddress();
   }, []);
 
-
   // 주소 저장
   const [myAddress, setMyAddress] = useState<MyAddressProps>({
     lat: 0,
     lng: 0,
   });
-  
+
   const { id: stringId } = useParams<{ id?: string }>();
   const id = stringId ? parseInt(stringId, 10) : null;
   const [offlineFilterState, setOfflineFilterState] = useState<number>(1);
   const [onlineFilterState, setOnlineFilterState] = useState<number>(1);
 
   const { isLoading: offlineReportLoading, data: offlineReportData } = useQuery({
-    queryKey: ['get-OfflineReport', id, myAddress],
+    queryKey: ['get-OfflineReport', id],
     queryFn: () =>
       id !== null && myAddress !== null
         ? getOfflineGraph(id, myAddress.lat, myAddress.lng)
@@ -175,10 +173,6 @@ function ReportGraphs() {
     queryFn: () => (id !== null ? getOnlineGraph(id) : Promise.reject(new Error('ID is null'))),
     // keepPreviousData: true,
   });
-  console.log(offlineReportData);
-  console.log(onlineReportData);
-  const navigate = useNavigate();
-  console.log('state', onlineFilterState);
 
   const offLineOneWeekOrder = () => {
     setOfflineFilterState(1);
@@ -207,38 +201,13 @@ function ReportGraphs() {
 
   return (
     <div>
-      {!offlineReportData ? (
+      {/* {offlineReportData?.markets.length !== 0 ? (
         <FlexRowBox $justifyContent="center">
           <MainButton text="주소 설정하러 가기" backgroundColor={main} onClick={() => navigate('/address')} />
         </FlexRowBox>
       ) : (
         <ShowGraph text="오프라인 평균" marketdata={offlineReportData} filterState={offlineFilterState} />
-      )}
-      {offlineReportData?.markets.length !== 0 ? (
-        <div>
-          {offlineFilterState === 1 ? (
-            <FlexRowBox $justifyContent="space-between" $padding="0 12vw" $margin="0 0 3vh 0">
-              <FilterButton text="1주" backgroundColor={main} onClick={offLineOneWeekOrder} />
-              <FilterButton text="2주" backgroundColor={LightGray} textColor={Gray} onClick={offLineTwoWeekOrder} />
-              <FilterButton text="4주" backgroundColor={LightGray} textColor={Gray} onClick={offLineFourWeekOrder} />
-            </FlexRowBox>
-          ) : offlineFilterState === 2 ? (
-            <FlexRowBox $justifyContent="space-between" $padding="0 12vw" $margin="0 0 3vh 0">
-              <FilterButton text="1주" backgroundColor={LightGray} textColor={Gray} onClick={offLineOneWeekOrder} />
-              <FilterButton text="2주" backgroundColor={main} onClick={offLineTwoWeekOrder} />
-              <FilterButton text="4주" backgroundColor={LightGray} textColor={Gray} onClick={offLineFourWeekOrder} />
-            </FlexRowBox>
-          ) : offlineFilterState === 4 ? (
-            <FlexRowBox $justifyContent="space-between" $padding="0 12vw" $margin="0 0 3vh 0">
-              <FilterButton text="1주" backgroundColor={LightGray} textColor={Gray} onClick={offLineOneWeekOrder} />
-              <FilterButton text="2주" backgroundColor={LightGray} textColor={Gray} onClick={offLineTwoWeekOrder} />
-              <FilterButton text="4주" backgroundColor={main} onClick={offLineFourWeekOrder} />
-            </FlexRowBox>
-          ) : null}
-        </div>
-      ) : null}
-
-      <hr style={{ margin: '1vh 3vh' }} />
+      )} */}
 
       {!onlineReportData ? (
         <EmptyData />
@@ -264,6 +233,38 @@ function ReportGraphs() {
           <FilterButton text="4주" backgroundColor={main} onClick={onlineFourWeekOrder} />
         </FlexRowBox>
       ) : null}
+
+      <hr style={{ margin: '3vh 3vh 1vh 3vh' }} />
+
+      {offlineReportData && offlineReportData?.markets.length !== 0 ? (
+        <div>
+          <ShowGraph text="오프라인 평균" marketdata={offlineReportData} filterState={offlineFilterState} />
+          {offlineFilterState === 1 ? (
+            <FlexRowBox $justifyContent="space-between" $padding="0 12vw" $margin="0 0 3vh 0">
+              <FilterButton text="1주" backgroundColor={main} onClick={offLineOneWeekOrder} />
+              <FilterButton text="2주" backgroundColor={LightGray} textColor={Gray} onClick={offLineTwoWeekOrder} />
+              <FilterButton text="4주" backgroundColor={LightGray} textColor={Gray} onClick={offLineFourWeekOrder} />
+            </FlexRowBox>
+          ) : offlineFilterState === 2 ? (
+            <FlexRowBox $justifyContent="space-between" $padding="0 12vw" $margin="0 0 3vh 0">
+              <FilterButton text="1주" backgroundColor={LightGray} textColor={Gray} onClick={offLineOneWeekOrder} />
+              <FilterButton text="2주" backgroundColor={main} onClick={offLineTwoWeekOrder} />
+              <FilterButton text="4주" backgroundColor={LightGray} textColor={Gray} onClick={offLineFourWeekOrder} />
+            </FlexRowBox>
+          ) : offlineFilterState === 4 ? (
+            <FlexRowBox $justifyContent="space-between" $padding="0 12vw" $margin="0 0 3vh 0">
+              <FilterButton text="1주" backgroundColor={LightGray} textColor={Gray} onClick={offLineOneWeekOrder} />
+              <FilterButton text="2주" backgroundColor={LightGray} textColor={Gray} onClick={offLineTwoWeekOrder} />
+              <FilterButton text="4주" backgroundColor={main} onClick={offLineFourWeekOrder} />
+            </FlexRowBox>
+          ) : null}
+        </div>
+      ) : (
+        <FlexColBox $padding="20px">
+          <TitleText>오프라인 평균</TitleText>
+          <EmptyData />
+        </FlexColBox>
+      )}
       <ScrollTopButton />
     </div>
   );
