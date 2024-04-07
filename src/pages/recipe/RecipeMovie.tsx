@@ -8,6 +8,7 @@ import { FlexRowBox } from '../../components/common/FlexRowBox';
 // import HomeBox from '../../components/common/HomeBox';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import getRecipeMovies from '../../services/recipe/getRecipeMovies';
+import he from 'he';
 
 function RecipeMovie() {
   const location = useLocation();
@@ -16,10 +17,6 @@ function RecipeMovie() {
     queryFn: () => getRecipeMovies(location.state.name),
   });
 
-  // 큰따옴표 깨짐 수정해주는 함수
-  const replaceQuot = (str: string) => {
-    return str.replace(/&quot;/g, '"');
-  };
 
   if (movieLoading) return <LoadingSpinner />;
   if (!movieData) return <EmptyData />;
@@ -43,8 +40,8 @@ function RecipeMovie() {
                 }}
               ></Paper>
               <MovieSubBox>
-                <MovieTitleText>{replaceQuot(movie.title)}</MovieTitleText>
-                <ContentText>{movie.content}</ContentText>
+                <MovieTitleText>{he.decode(movie.title)}</MovieTitleText>
+                <ContentText>{he.decode(movie.content)}</ContentText>
               </MovieSubBox>
             </FlexRowBox>
           </Link>
