@@ -115,21 +115,24 @@ function MyPriceList() {
   const onClickDetail = (ingredient_id: number) => {
     navigate(`/ingredient/report/${ingredient_id}`);
   };
-
   return (
     <div>
-      {priceData.map((item, index) => (
-        <Container key={index}>
-          <ChartContainer>
-            <canvas ref={(ref) => (chartRefs.current[index] = ref)}></canvas>
-          </ChartContainer>
-          <Context onClick={() => onClickDetail(item.ingredient_id)}>
-            <Ingredient>{item.ingredient_name}</Ingredient>
-            <OnlinePrice>{item.current_online_price.toLocaleString('ko-KR')}원</OnlinePrice>
-            <OfflinePrice>{item.current_offline_price.toLocaleString('ko-KR')}원</OfflinePrice>
-          </Context>
-        </Container>
-      ))}
+      {priceData.length === 0 ? (
+        <Message>지정한 목표가가 없습니다</Message>
+      ) : (
+        priceData.map((item, index) => (
+          <Container key={index}>
+            <ChartContainer>
+              <canvas ref={(ref) => (chartRefs.current[index] = ref)}></canvas>
+            </ChartContainer>
+            <Context onClick={() => onClickDetail(item.ingredient_id)}>
+              <Ingredient>{item.ingredient_name}</Ingredient>
+              <OnlinePrice>{item.current_online_price.toLocaleString('ko-KR')}원</OnlinePrice>
+              <OfflinePrice>{item.current_offline_price.toLocaleString('ko-KR')}원</OfflinePrice>
+            </Context>
+          </Container>
+        ))
+      )}
     </div>
   );
 }
@@ -189,7 +192,9 @@ export const Context = styled.div`
 
 export const Ratio = styled.div``;
 
-export const Message = styled.div`
-  font-family: 'NanumSquareRoundB';
-  margin: 1rem;
+const Message = styled.div`
+font-family: 'NanumSquareRoundB';
+margin: 1rem;
+margin-top: 2rem;
+text-align: center;
 `;
