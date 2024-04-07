@@ -75,12 +75,20 @@ function ReportReasonable() {
         {diff > 0 ? (
           <div>
             <PointText>{reasonableData.price}원</PointText>
-            <PointText>(목표가 대비+{diff.toLocaleString('ko-KR')}원)</PointText>
+            <FlexRowBox>
+              <PointText>(목표가 대비</PointText>
+              <PointText style={{ color: 'red' }}>+{diff.toLocaleString('ko-KR')}</PointText>
+              <PointText>원)</PointText>
+            </FlexRowBox>
           </div>
         ) : diff < 0 && diff !== reasonableData.price ? (
           <div>
             <PointText>{reasonableData.price}원</PointText>
-            <PointText>(목표가 대비{diff.toLocaleString('ko-KR')}원)</PointText>
+            <FlexRowBox>
+              <PointText>(목표가 대비</PointText>
+              <PointText style={{ color: 'blue' }}>{diff.toLocaleString('ko-KR')}</PointText>
+              <PointText>원)</PointText>
+            </FlexRowBox>
           </div>
         ) : (
           <div>

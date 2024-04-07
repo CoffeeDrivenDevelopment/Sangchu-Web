@@ -262,7 +262,9 @@ function ReportGraphs() {
       ) : (
         <FlexColBox $padding="20px">
           <TitleText>오프라인 평균</TitleText>
-          <EmptyData />
+          <div style={{ fontFamily: 'NanumSquareRoundB', fontSize: '12px', marginTop: '1vh' }}>
+            설정한 위치의 3km이내에서 판매하지 않는 재료예요.
+          </div>
         </FlexColBox>
       )}
       <ScrollTopButton />
