@@ -29,7 +29,7 @@ function RecipeReplyComments({ recipeId, parent_commentId, onCommentAdded }: Rec
     refetch,
   } = useQuery({
     queryKey: ['get-reply', parent_commentId],
-    queryFn: () => getRecipeReplyComments(parent_commentId, last, 10),
+    queryFn: () => getRecipeReplyComments(parent_commentId, last, 20),
   });
   const [content, setContent] = useState('');
 

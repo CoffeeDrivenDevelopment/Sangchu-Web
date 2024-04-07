@@ -121,7 +121,7 @@ function RecipeListCard() {
         type: 'category',
         query: categoryName[Number(id) - 1],
         last: 40000,
-        size: 10,
+        size: 20,
       }),
   });
   if (recipeListLoading) return <LoadingSpinner />;
