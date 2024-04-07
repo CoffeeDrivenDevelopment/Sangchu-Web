@@ -39,12 +39,12 @@ function MyPriceList() {
             {
               label: '온라인',
               borderColor: 'rgb(135, 135, 255)',
-              data: onlineList,
+              data: onlineList.reverse(),
             },
             {
               label: '오프라인',
               borderColor: 'rgb(240, 106, 106)',
-              data: offlineList,
+              data: offlineList.reverse(),
             },
             {
               label: '목표가',
