@@ -25,34 +25,33 @@ function RecipeMovie() {
   if (!movieData) return <EmptyData />;
 
   return (
-    <div style={{ padding: '2vh' }}>
+    <FlexColBox $padding="2vh" $gap="2vh">
       <TotalText>총 {movieData.total_count}개</TotalText>
       {movieData.cooking_movies.map((movie, i) => (
         <div key={i}>
           <Link to={movie.url} target="_blank" style={{ textDecoration: 'none', color: 'black' }}>
-            <Paper elevation={3}>
-              <FlexRowBox $alignItems="center">
-                <Paper
-                  elevation={3}
-                  sx={{
-                    backgroundImage: `url(${movie.thumbnail})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat',
-                    width: '140px',
-                    height: '120px',
-                  }}
-                ></Paper>
-                <MovieSubBox>
-                  <MovieTitleText>{replaceQuot(movie.title)}</MovieTitleText>
-                  <ContentText>{movie.content}</ContentText>
-                </MovieSubBox>
-              </FlexRowBox>
-            </Paper>
+            <FlexRowBox $alignItems="center">
+              <Paper
+                elevation={3}
+                sx={{
+                  backgroundImage: `url(${movie.thumbnail})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat',
+                  width: '140px',
+                  height: '120px',
+                }}
+              ></Paper>
+              <MovieSubBox>
+                <MovieTitleText>{replaceQuot(movie.title)}</MovieTitleText>
+                <ContentText>{movie.content}</ContentText>
+              </MovieSubBox>
+            </FlexRowBox>
           </Link>
+          <hr style={{ marginTop: '2.2vh' }} />
         </div>
       ))}
-    </div>
+    </FlexColBox>
   );
 }
 

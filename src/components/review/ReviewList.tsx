@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import getReviewList from '../../services/review/getReviewList';
 import IconBox from '../common/IconBox';
 // import { main, LightGray } from '../../assets/styles/palettes';
-import heart from '../../assets/images/heart_on.png';
+// import heart from '../../assets/images/heart_on.png';
 // import MainButton from '../common/MainButton';
 import writeImg from '../../assets/images/reviewWrite.png';
 import arrowImg from '../../assets/images/right_arrow.png';
@@ -92,6 +92,8 @@ function ReviewList(props: ParameterProps) {
           <img src={arrowImg} alt="화살표" style={{ width: '16px' }} />
         </S.ReviewWriteBtn>
       </S.SubHeader>
+      {reviewListData.reviews.length === 0 ? <S.EmptyBox>첫 리뷰를 작성해보세요!</S.EmptyBox> : null}
+
       {reviewListData.reviews.map((review) => (
         <S.ReviewContainer key={review.id} onClick={() => moveToDetail(review.id)}>
           <IconBox text="" img={review.image} />
@@ -100,10 +102,10 @@ function ReviewList(props: ParameterProps) {
               <h6>{review.title}</h6>
               <S.InfoArea>
                 <S.Writer>by {review.member.nickname}</S.Writer>
-                <S.LikeArea>
+                {/* <S.LikeArea>
                   <img src={heart} alt="좋아요" style={{ width: '12px' }} />
                   <span>{review.like_count}</span>
-                </S.LikeArea>
+                </S.LikeArea> */}
               </S.InfoArea>
             </S.HeaderArea>
             <S.ContentsArea>{review.content}</S.ContentsArea>

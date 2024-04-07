@@ -5,6 +5,7 @@ import MainButton from '../../components/common/MainButton';
 import postReviewRegister from '../../services/review/postReviewRegister';
 import { LightGray } from '../../assets/styles/palettes';
 import * as S from './ReviewWrite.styled';
+import Swal from 'sweetalert2';
 
 function ReviewWrite() {
   const [title, setTitle] = useState<string>('');
@@ -70,6 +71,13 @@ function ReviewWrite() {
         formData.append('files', uploadedImgList[i]);
       }
 
+      Swal.fire({
+        icon: 'success',
+        text: '리뷰 작성 완료!',
+        showConfirmButton: false,
+        showCancelButton: true,
+        cancelButtonText: '닫기',
+      });
       const res = await postReviewRegister(location.state.id, formData);
       if (res !== null) {
         navigate(`/recipe/${location.state.id}/review/${res.review_id}`, {
@@ -79,7 +87,13 @@ function ReviewWrite() {
           },
         });
       } else {
-        alert('리뷰 작성에 실패했습니다.');
+        Swal.fire({
+          icon: 'error',
+          text: '리뷰 작성에 실패했습니다.',
+          showConfirmButton: false,
+          showCancelButton: true,
+          cancelButtonText: '닫기',
+        });
       }
     }
   };

@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../../api/api';
 import { useEffect, useState, useRef } from 'react';
 import no_image from '../../assets/images/no_image.png';
+import Swal from 'sweetalert2';
 
 interface RecipeResponse {
   message: string;
@@ -24,7 +25,6 @@ interface Recipe {
   is_liked: boolean;
   tags: string[];
 }
-
 
 function MyWishRecipeList() {
   const navigate = useNavigate();
@@ -52,7 +52,7 @@ function MyWishRecipeList() {
         setIsLoading(false);
       }
     };
-    
+
     getMyRecipeList();
   }, [currentPage]);
 
@@ -90,6 +90,14 @@ function MyWishRecipeList() {
     try {
       const response = await api.delete(`/recipe-service/v1/recipes/${id}/likes`);
       console.log('레시피 좋아요 취소', response.data);
+      Swal.fire({
+        icon: 'success',
+        text: '찜 취소 완료!',
+        showConfirmButton: false,
+        showCancelButton: true,
+        cancelButtonText: '닫기',
+      });
+
       // 요청 성공 시 목록에서 제거
       setRecipeListData((prevRecipes) => prevRecipes.filter((recipe) => recipe.id !== id));
     } catch (error) {
@@ -104,11 +112,15 @@ function MyWishRecipeList() {
       {recipeListData.map((recipe) => (
         <RecipeCard key={recipe.id} onClick={() => moveToDetail(recipe)}>
           <ImgBox>
-            <img src={recipe.image || no_image} alt="레시피 이미지" style={{ width: '100%', height: '100%', borderRadius: '10px' }} />
+            <img
+              src={recipe.image || no_image}
+              alt="레시피 이미지"
+              style={{ width: '100%', height: '100%', borderRadius: '10px' }}
+            />
           </ImgBox>
           <ContentsBox>
             <HeaderBox>
-              <h2>{recipe.name}</h2>
+              <h4>{recipe.name}</h4>
               <UnlikeButton
                 onClick={(event) => {
                   event.stopPropagation();
@@ -137,18 +149,18 @@ function MyWishRecipeList() {
 export default MyWishRecipeList;
 
 const RecipeCard = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 2.5fr;
   align-items: center;
-  justify-content: space-around;
   border-radius: 20px;
-  height: 160px;
+  height: 130px;
   box-shadow: 2px 6px 8px rgba(0, 0, 0, 0.1);
 `;
 
 const ImgBox = styled.div`
   width: 110px;
   height: 110px;
-  margin-left: 0.5rem;
+  padding: 5px;
 `;
 
 const ContentsBox = styled.div`
@@ -156,9 +168,8 @@ const ContentsBox = styled.div`
 `;
 
 const HeaderBox = styled.div`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
   margin-bottom: 1rem;
 `;
 
@@ -173,7 +184,7 @@ const TagBox = styled.div`
 const TagBtn = styled.div`
   background-color: ${LightGray};
   padding: 0.5rem;
-  border-radius: 15px;
+  border-radius: 10px;
 `;
 
 const Message = styled.div`

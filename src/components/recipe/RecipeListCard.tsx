@@ -13,6 +13,7 @@ import postRecipeLike from '../../services/recipe/postRecipeLike';
 import deleteRecipeLike from '../../services/recipe/deleteRecipeLike';
 import ScrollTopButton from '../common/ScrollTopButton';
 import no_image from '../../assets/images/no_image.png';
+import Swal from 'sweetalert2';
 
 const RecipeCard = styled.div`
   display: grid;
@@ -82,7 +83,13 @@ function RecipeListCard() {
   const handleLike = async (recipe_id: number) => {
     try {
       await postRecipeLike(recipe_id);
-      alert('찜 추가 완료!');
+      Swal.fire({
+        icon: 'success',
+        text: '찜 추가 완료!',
+        showConfirmButton: false,
+        showCancelButton: true,
+        cancelButtonText: '닫기',
+      });
       queryClient.invalidateQueries({ queryKey: ['get-recipe-list'] });
     } catch (error) {
       console.error(error);
@@ -93,7 +100,13 @@ function RecipeListCard() {
   const handleDislike = async (recipe_id: number) => {
     try {
       await deleteRecipeLike(recipe_id);
-      alert('찜 삭제 완료!');
+      Swal.fire({
+        icon: 'success',
+        text: '찜 삭제 완료!',
+        showConfirmButton: false,
+        showCancelButton: true,
+        cancelButtonText: '닫기',
+      });
       queryClient.invalidateQueries({ queryKey: ['get-recipe-list'] });
     } catch (error) {
       console.error(error);
@@ -128,7 +141,6 @@ function RecipeListCard() {
               <img src={unlikeImg} alt="연한 숟가락" width={'25vw'} onClick={() => handleLike(recipe.id)} />
             </LikeDiv>
           )}
-
 
           <RecipeCard onClick={() => moveToDetail(recipe.id, recipe.image || no_image, recipe.name)}>
             <ImgBox>

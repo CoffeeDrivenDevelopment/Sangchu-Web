@@ -8,6 +8,7 @@ import Header from '../common/Header.tsx';
 import MainButton from '../common/MainButton.tsx';
 import patchUserAddress from '../../services/user/patchUserAddress.ts';
 import MyMap from '../../pages/user/MyMap.tsx';
+import Swal from 'sweetalert2';
 
 function MyAddress() {
   const [isShowPostCode, setIsShowPostCode] = useState<boolean>(false);
@@ -69,7 +70,13 @@ function MyAddress() {
         const lngNum = parseFloat(lng);
         await patchUserAddress(latNum, lngNum);
         setAddress(latNum, lngNum, addressName);
-        alert('주소 설정 완료!');
+        Swal.fire({
+          icon: 'success',
+          text: '주소 변경 완료!',
+          showConfirmButton: false,
+          showCancelButton: true,
+          cancelButtonText: '닫기',
+        });
         setMyAddress('');
       }
     } catch (error) {
