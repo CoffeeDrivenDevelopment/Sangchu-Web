@@ -64,3 +64,10 @@ export const IconContainer = styled.div`
 export const BelowHeader = styled.div`
   margin-top: 6rem;
 `;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 1rem;
+`;
+

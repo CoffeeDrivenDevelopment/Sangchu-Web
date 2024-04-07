@@ -131,7 +131,7 @@ function Profile() {
         <AppBar sx={{ backgroundColor: '#ffffff', color: '#000000', fontFamily: 'NanumSquareRoundEB' }}>
           <Toolbar>
             <FlexRowBox $gap="1px" $justifyContent="space-between" $alignItems="center" $width="100%">
-              <div onClick={onClickModifyAddress}>나의 위치</div>
+              <div></div>
               <FlexRowBox $gap="0.3rem" $alignItems="center">
                 <Logout />
               </FlexRowBox>
@@ -180,6 +180,9 @@ function Profile() {
             </S.IconContainer>
           </S.NicknameContainer>
         )}
+        <S.ButtonContainer>
+        <MainButton text='나의 위치' backgroundColor={main} onClick={onClickModifyAddress}></MainButton>
+        </S.ButtonContainer>
         <div style={{ padding: '0 0.8rem' }}>
           <ShortToggleBar labelType="profile" initialValue={categoryValue} />
           {categoryValue === 0 ? <MyReviewList /> : <div></div>}
