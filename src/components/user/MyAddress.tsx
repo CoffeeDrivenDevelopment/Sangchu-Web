@@ -75,7 +75,13 @@ function MyAddress() {
 
           const result = response.v2;
           if (result.addresses[0] === undefined) {
-            alert('유효한 주소를 입력해주세요!');
+            Swal.fire({
+              icon: 'warning',
+              text: '유효한 주소를 입력해주세요.',
+              showConfirmButton: false,
+              showCancelButton: true,
+              cancelButtonText: '닫기',
+            });
             setAddressName('');
             return reject('잘못된 주소 입력');
           }
@@ -98,7 +104,7 @@ function MyAddress() {
         setIsUpdated(!isUpdated);
         Swal.fire({
           icon: 'success',
-          text: '주소 변경 완료!',
+          text: '위치 수정 완료!',
           showConfirmButton: false,
           showCancelButton: true,
           cancelButtonText: '닫기',

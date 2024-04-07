@@ -26,7 +26,13 @@ function ReviewWrite() {
     const files = e.target.files;
     if (files) {
       if (files.length > 5) {
-        alert('사진은 최대 5장까지만 업로드할 수 있습니다.');
+        Swal.fire({
+          icon: 'warning',
+          text: '사진은 최대 5장까지 업로드 가능합니다.',
+          showConfirmButton: false,
+          showCancelButton: true,
+          cancelButtonText: '닫기',
+        });
         return;
       }
       setUploadedImgList(files);
@@ -48,9 +54,21 @@ function ReviewWrite() {
 
   const reviewRegister = async () => {
     if (!title) {
-      alert('제목을 입력해주세요.');
+      Swal.fire({
+        icon: 'warning',
+        text: '제목을 입력해주세요.',
+        showConfirmButton: false,
+        showCancelButton: true,
+        cancelButtonText: '닫기',
+      });
     } else if (!uploadedImgList) {
-      alert('최소 1장의 사진을 첨부해야 합니다.');
+      Swal.fire({
+        icon: 'warning',
+        text: '최소 1장의 사진을 선택해주세요.',
+        showConfirmButton: false,
+        showCancelButton: true,
+        cancelButtonText: '닫기',
+      });
     } else {
       const formData = new FormData();
       const requestBlob = new Blob(
@@ -89,7 +107,7 @@ function ReviewWrite() {
       } else {
         Swal.fire({
           icon: 'error',
-          text: '리뷰 작성에 실패했습니다.',
+          text: '리뷰 작성 실패',
           showConfirmButton: false,
           showCancelButton: true,
           cancelButtonText: '닫기',
