@@ -26,7 +26,7 @@ function RecipeReplyComments({ recipeId, parent_commentId }: RecipeCommentListPr
     refetch,
   } = useQuery({
     queryKey: ['get-reply', parent_commentId],
-    queryFn: () => getRecipeReplyComments(parent_commentId, last, 10)
+    queryFn: () => getRecipeReplyComments(parent_commentId, last, 10),
   });
   const [content, setContent] = useState('');
 
@@ -51,7 +51,7 @@ function RecipeReplyComments({ recipeId, parent_commentId }: RecipeCommentListPr
   if (!replyData) {
     return <EmptyData />;
   }
-  console.log(replyData)
+  console.log(replyData);
   return (
     <div style={{ padding: '8px' }}>
       <InputBox>
@@ -75,7 +75,7 @@ function RecipeReplyComments({ recipeId, parent_commentId }: RecipeCommentListPr
             <div style={{ padding: '10px', wordBreak: 'keep-all' }}>{comment.content}</div>
 
             <FlexRowBox $position="absolute" $alignItems="center" $right="10px" $gap="5px">
-              <SubText>업데이트: {comment.last_updated_time}</SubText>
+              <SubText>{comment.last_updated_time}</SubText>
             </FlexRowBox>
           </FlexColBox>
         </Balloon>

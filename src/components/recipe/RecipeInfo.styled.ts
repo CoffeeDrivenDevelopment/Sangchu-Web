@@ -27,8 +27,9 @@ export const ContentsBox = styled.div`
   gap: 0.5rem;
   background-color: ${LightGray};
   font-size: 14px;
-  padding: 0.5rem 1rem;
+  padding: 3vh;
   border-radius: 10px;
+  word-break: keep-all;
 `;
 
 export const LinkBox = styled.div`

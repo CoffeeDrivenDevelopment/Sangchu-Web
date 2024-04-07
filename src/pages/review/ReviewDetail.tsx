@@ -1,19 +1,20 @@
 import styled from '@emotion/styled';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import Carousel from 'react-material-ui-carousel';
 import { useLocation, useNavigate } from 'react-router-dom';
-import heart_off from '../../assets/images/heart_off.png';
-import heart_on from '../../assets/images/heart_on.png';
-import { Gray, LightGray } from '../../assets/styles/palettes';
+// import heart_off from '../../assets/images/heart_off.png';
+// import heart_on from '../../assets/images/heart_on.png';
+import { Gray, LightGray, main } from '../../assets/styles/palettes';
 import { FlexRowBox } from '../../components/common/FlexRowBox';
-// import MainButton from '../../components/common/MainButton';
+import MainButton from '../../components/common/MainButton';
 import EmptyData from '../../components/common/EmptyData';
 import Header from '../../components/common/Header';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import getReviewDetail from '../../services/review/getReviewDetail';
 // import deleteReviewLike from '../../services/review/deleteReviewLike';
 // import postReviewLike from '../../services/review/postReviewLike';
-// import deleteReview from '../../services/review/deleteReview';
+import deleteReview from '../../services/review/deleteReview';
+import Swal from 'sweetalert2';
 
 function ReviewDetail() {
   const location = useLocation();
@@ -30,38 +31,58 @@ function ReviewDetail() {
   //   alert('좋아요 삭제 완료!');
   // }, []);
 
-  const queryClient = useQueryClient();
-  const handleLike = async (reviewId: number) => {
-    try {
-      // await postReviewLike(reviewId);
-      alert('좋아요 추가 완료!');
-      queryClient.invalidateQueries({ queryKey: ['get-reviewDetail', reviewId] });
-    } catch (error) {
-      console.error(error);
-      alert('좋아요 추가에 실패했습니다.');
-    }
-  };
+  // const queryClient = useQueryClient();
+  // const handleLike = async (reviewId: number) => {
+  //   try {
+  //     // await postReviewLike(reviewId);
+  //     alert('좋아요 추가 완료!');
+  //     queryClient.invalidateQueries({ queryKey: ['get-reviewDetail', reviewId] });
+  //   } catch (error) {
+  //     console.error(error);
+  //     alert('좋아요 추가에 실패했습니다.');
+  //   }
+  // };
 
-  const handleDislike = async (reviewId: number) => {
-    try {
-      // await deleteReviewLike(reviewId);
-      alert('좋아요 삭제 완료!');
-      queryClient.invalidateQueries({ queryKey: ['get-reviewDetail', reviewId] });
-    } catch (error) {
-      console.error(error);
-      alert('좋아요 삭제에 실패했습니다.');
-    }
-  };
+  // const handleDislike = async (reviewId: number) => {
+  //   try {
+  //     // await deleteReviewLike(reviewId);
+  //     alert('좋아요 삭제 완료!');
+  //     queryClient.invalidateQueries({ queryKey: ['get-reviewDetail', reviewId] });
+  //   } catch (error) {
+  //     console.error(error);
+  //     alert('좋아요 삭제에 실패했습니다.');
+  //   }
+  // };
 
   const { isLoading: detailLoading, data: detailData } = useQuery({
     queryKey: ['get-reviewDetail', reviewId],
     queryFn: () => (reviewId !== null ? getReviewDetail(reviewId) : Promise.reject(new Error('ID is null'))),
   });
 
-  // const handleDelete = () => {
-  //   deleteReview(reviewId);
-  //   alert('리뷰 삭제 완료!')
-  // };
+  const handleDelete = async () => {
+    Swal.fire({
+      text: '정말 삭제하시겠습니까?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: '삭제',
+      confirmButtonColor: '#ff4444',
+      cancelButtonText: '취소',
+      reverseButtons: true,
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          text: '삭제 완료!',
+          icon: 'success',
+          showConfirmButton: false,
+          showCancelButton: true,
+          cancelButtonText: '닫기',
+          cancelButtonColor: main,
+        });
+        await deleteReview(reviewId);
+        navigate(-1);
+      }
+    });
+  };
 
   // useEffect(() => {
   //   console.log('좋아요 변화')
@@ -76,13 +97,13 @@ function ReviewDetail() {
         <ContentsBox>
           <HeaderBox>
             <FlexRowBox $alignItems="center" $gap="1vh" $position="relative">
-              {detailData.is_liked ? (
+              {/* {detailData.is_liked ? (
                 <img src={heart_on} style={{ width: '28px' }} onClick={() => handleDislike(reviewId)} />
               ) : (
                 <img src={heart_off} style={{ width: '28px' }} onClick={() => handleLike(reviewId)} />
-              )}
+              )} */}
               <h5>{detailData.title}</h5>
-              <CountText>{detailData.like_count}</CountText>
+              {/* <CountText>{detailData.like_count}</CountText> */}
             </FlexRowBox>
             <NameText onClick={() => navigate(`/profile/${detailData.member.id}`)}>
               {detailData.member.nickname} 작성
@@ -113,7 +134,7 @@ function ReviewDetail() {
           <ContentText>{detailData.content}</ContentText>
         </ContentsBox>
         <ButtonBox>
-          {/* <MainButton text="삭제" backgroundColor={LightGray} textColor="black" onClick={handleDelete} /> */}
+          <MainButton text="삭제" backgroundColor={LightGray} textColor="black" onClick={handleDelete} />
         </ButtonBox>
       </MainBox>
     </div>
@@ -166,9 +187,9 @@ const ContentText = styled.div`
   word-break: keep-all;
 `;
 
-const CountText = styled.div`
-  font-family: 'NanumSquareRoundB';
-  position: absolute;
-  top: 3.2vh;
-  left: 9px;
-`;
+// const CountText = styled.div`
+//   font-family: 'NanumSquareRoundB';
+//   position: absolute;
+//   top: 3.2vh;
+//   left: 9px;
+// `;
