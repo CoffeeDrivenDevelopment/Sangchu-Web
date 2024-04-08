@@ -4,17 +4,17 @@ import { Chart } from 'chart.js';
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Gray, LightGray, main } from '../../assets/styles/palettes';
+import graphFormatDate from '../../hooks/graphFormatDate';
+import updateFormatDate from '../../hooks/updateFormatDate';
 import getOfflineGraph from '../../services/report/getOfflineGraph';
 import getOnlineGraph from '../../services/report/getOnlineGraph';
+import patchUserAddress from '../../services/user/patchUserAddress';
 import EmptyData from '../common/EmptyData';
 import FilterButton from '../common/FilterButton';
+import { FlexColBox } from '../common/FlexColBox';
 import { FlexRowBox } from '../common/FlexRowBox';
 import LoadingSpinner from '../common/LoadingSpinner';
 import ScrollTopButton from '../common/ScrollTopButton';
-import patchUserAddress from '../../services/user/patchUserAddress';
-import graphFormatDate from '../../hooks/graphFormatDate';
-import updateFormatDate from '../../hooks/updateFormatDate';
-import { FlexColBox } from '../common/FlexColBox';
 
 type ShowGraphProps = {
   text: string;
@@ -154,7 +154,6 @@ function ReportGraphs() {
     lat: 0,
     lng: 0,
   });
-
   const { id: stringId } = useParams<{ id?: string }>();
   const id = stringId ? parseInt(stringId, 10) : null;
   const [offlineFilterState, setOfflineFilterState] = useState<number>(1);
@@ -174,6 +173,7 @@ function ReportGraphs() {
     // keepPreviousData: true,
   });
 
+  console.log(offlineReportData);
   const offLineOneWeekOrder = () => {
     setOfflineFilterState(1);
   };
@@ -236,7 +236,10 @@ function ReportGraphs() {
 
       <hr style={{ margin: '3vh 3vh 1vh 3vh' }} />
 
-      {offlineReportData && offlineReportData?.markets.length !== 0 ? (
+      {offlineReportData &&
+      !offlineReportData.markets.every(
+        (market) => market[1].length === 0 && market[2].length === 0 && market[4].length === 0,
+      ) ? (
         <div>
           <ShowGraph text="오프라인 평균" marketdata={offlineReportData} filterState={offlineFilterState} />
           {offlineFilterState === 1 ? (
