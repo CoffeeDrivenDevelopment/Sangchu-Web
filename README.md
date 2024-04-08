@@ -55,12 +55,17 @@
 
 [웹브라우저로 상추 접속하기](https://d-web.sangchu.site/)
 
-[//]: # (<img src="files/어플리케이션다운로드방법.PNG" alt="logo" width="660" height="315"/>)
+### 메인 페이지
+<img src="https://github.com/Amsan-null/amsan2/assets/88939170/fedc24bc-3802-4284-816d-415bd576b59e" width="250" height="400" /> 
+
+- 렌더링 될 때마다 1개의 레시피 추천
+- 하루마다 10개의 농수산물 식재료 추천 및 온오프라인 최저가 제공
 
 ### 농수산물 식재료관련 기능
 
-<img src="https://github.com/skagmltn7/skagmltn7/assets/133394749/713ae649-4c62-4f43-9673-9820e1d5994b" width="250" height="400" />  
-<img src="https://github.com/skagmltn7/skagmltn7/assets/133394749/27fd01a7-96f9-4cf9-a186-c7804af5f8e9" width="250" height="400" />
+<img src="https://github.com/Amsan-null/amsan2/assets/88939170/0882b480-b0e8-48ec-84d5-7796d5a58624" width="250" height="400" />  
+<img src="https://github.com/Amsan-null/amsan2/assets/88939170/e8e80f04-6577-4573-901b-3578cb9148cb" width="250" height="400" />
+<img src="https://github.com/Amsan-null/amsan2/assets/88939170/5cedb607-0d58-45c5-8a44-110b73931784" width="250" height="400" />
 
 - 카테고리별 농수산물 재료 조회 및 검색
 - 가격 분석 리포트 제공
@@ -74,20 +79,22 @@
 ### 레시피관련 기능
 
 
-<img src="https://github.com/skagmltn7/skagmltn7/assets/133394749/06932d5c-1a74-43f3-bb07-7895069baa6f" width="250" height="400" />
-<img src="https://github.com/skagmltn7/skagmltn7/assets/133394749/a14d660c-de10-4515-b764-3682ab7ee5bc" width="250" height="400" />
+<img src="https://github.com/Amsan-null/amsan2/assets/88939170/474fa02e-aa46-40c0-a0ae-f859577ee1df" width="250" height="400" />
+<img src="https://github.com/Amsan-null/amsan2/assets/88939170/4c8b2ee4-7ada-44c5-ad6c-af4840556d13" width="250" height="400" />
+<img src="https://github.com/Amsan-null/amsan2/assets/88939170/4c2a40bb-1918-4b3a-8fd3-d720ba77c7f1" width="250" height="400" />
+<img src="https://github.com/Amsan-null/amsan2/assets/88939170/2fa38f74-071c-4d97-99df-0d6ebd21adbb" width="250" height="400" />
 
 - 농수산물 재료를 통해 만들 수 있는 레시피
 - 해당 레시피 유튜브 영상 제공
 - 관심 있는 레시피 `찜하기` 기능
 - 레시피에 대한 리뷰글 작성
-    - 리뷰글에 대한 댓글/대댓글 가능
+- 리뷰글에 대한 댓글/대댓글 가능
 <hr/>
 
 ### 사용자관련 기능
 
-<img src="https://github.com/skagmltn7/skagmltn7/assets/133394749/1e90244f-41f7-4fa5-adf8-57599c2ae153" width="250" height="400" />
-<img src="https://github.com/skagmltn7/skagmltn7/assets/133394749/03cedfdd-3922-41be-bf13-05928f6edd02" width="250" height="400" />
+<img src="https://github.com/Amsan-null/amsan2/assets/88939170/00a1391c-3076-4db6-9105-9de400b28965" width="250" height="400" />
+<img src="https://github.com/Amsan-null/amsan2/assets/88939170/460a399e-fbc0-41cf-b234-f5f2884f14fb" width="250" height="400" />
 
 - 네이버 OAuth2를 사용한 사용자 인증 기능 구현
 - 닉네임 및 프로필 사진 등록
@@ -219,8 +226,11 @@
 
 ## Project Output
 
+### 와이어프레임
+![A408 상추 (1)](https://github.com/Amsan-null/amsan2/assets/88939170/a6285540-16a0-4270-8af3-bd8530c513e0)
 ### <a href="docs/기능정의서.md">기능정의서</a>
-### <a href="docs/와이어프레임.pdf">와이어프레임</a>
+### <a href="docs/와이어프레임.pdf">화면정의서</a>
+### <a href="docs/상추 최종발표.pdf">최종발표 PPT</a>
 
 ### <a href="docs/ERD.md">ERD
 
